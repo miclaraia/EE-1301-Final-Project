@@ -1,5 +1,5 @@
 // This #include statement was automatically added by the Particle IDE.
-#include "adafruit-led-backpack/adafruit-led-backpack.h"
+#include "adafruit-led-backpack.h"
 
 /***************************************************
   This is a library for our I2C LED Backpacks
