@@ -1,6 +1,6 @@
 #define R 5 // r for rounds
-#define TL_ButPIN = D6;
-#define TR_ButPIN = D4;
-#define BL_ButPIN = D5;
-#define BR_ButPIN = D3;
-#define SZ_ButPIN = D2;
+#define BUTTON_TOPLEFT D6;
+#define BUTTON_TOPRIGHT D4;
+#define BUTTON_BOTTOMLEFT D5;
+#define BUTTON_BOTTOMRIGHT D3;
+#define BUTTON_SNOOZE D2;

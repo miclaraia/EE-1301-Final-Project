@@ -1,3 +1,5 @@
+#include "application.h"
+
 class MyTimer {
 public:
     unsigned int timer;
@@ -10,3 +12,11 @@ public:
 
     MyTimer(unsigned int timer, int duration);
 };
+
+class Module {
+public:
+    bool run;
+    MyTimer timer;
+
+    void run;
+}

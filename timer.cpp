@@ -1,5 +1,4 @@
-#include "timer.h"
-#include "application.h"
+#include "objects.h"
 
 MyTimer::MyTimer(unsigned int timer, int duration) {
     this->timer = timer;
