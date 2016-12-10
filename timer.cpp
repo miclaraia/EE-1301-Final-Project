@@ -1,10 +1,20 @@
+#include "timer.h"
+#include "application.h"
 
-class MyTimer {
-public:
-    unsigned int timer;
-    int duration;
-    bool active
-    void *run
+MyTimer::MyTimer(unsigned int timer, int duration) {
+    this->timer = timer;
+    this->duration = duration;
+}
 
-    MyTimer(unsigned int timer, int duration, void (*run)());
+bool MyTimer::check() {
+    if (timer <= millis()) {
+        reset();
+        return true;
+    }
+
+    return false;
+}
+
+void MyTimer::reset() {
+    timer = millis() + duration;
 }
