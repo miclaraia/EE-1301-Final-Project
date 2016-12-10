@@ -1,5 +1,5 @@
 // This #include statement was automatically added by the Particle IDE.
-#include "adafruit-led-backpack.h"
+#include "adafruit-led-backpack/adafruit-led-backpack.h"
 
 /***************************************************
   This is a library for our I2C LED Backpacks
@@ -56,11 +56,11 @@ void setup() {
  pinMode(BL_ButPIN, INPUT_PULLDOWN);
  pinMode(BR_ButPIN, INPUT_PULLDOWN);
  pinMode(SZ_ButPIN, INPUT_PULLDOWN);
- 
+ matrix.setRotation(1); // proper orientation
  
   Serial.begin(9600);
   Serial.println("8x8 LED Matrix Test");
-  matrix.begin(0x70);  // pass in the address
+  matrix.begin(0x71);  // pass in the address
 
  
 }
@@ -106,11 +106,11 @@ static const uint8_t
 void simon(){
     
 int number = 0;
-int disp[R];
+int disp[R+1];
 int check[R];
-    for(int i =0; i<R; i++)
+    for(int i =0; i<R; i++){
         check[i]=0;
-        
+    }
 int TL_ButNow;
 int TR_ButNow;
 int BL_ButNow;
@@ -123,9 +123,9 @@ int BR_ButLast = 0;
 int SZ_ButLast = 0;
 
 bool ButOrd[R];
-    for(int i = 0; i<R;i++)
+    for(int i = 0; i<R;i++){
         ButOrd[i] = false;
-        
+    }
 bool rundisp = true;
 //bool TL_Butprs = false;
 //bool TR_Butprs = false;
@@ -140,9 +140,12 @@ for (int A =0; A<R; A++){
  // sets all the to be used values of disp to a value for it's corrsponding corner   
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(number ==0){
-    for(int j = 0; j< R; j++){
+    for(int j = 0; j< R+1; j++){
        disp[j] = random(3) + 1;
+       //disp[j] = 1;
     }
+    disp[R] =0;
+    
 }
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -160,7 +163,7 @@ for(int z = 0; z < number+1; z++){
 //topleft
 if (disp[z] ==1){
   matrix.clear();
-  matrix.drawBitmap(0, 0, topleft_bmp, 8, 8, LED_RED);
+  matrix.drawBitmap(0, 0, topleft_bmp, 8, 8, LED_GREEN);
   matrix.writeDisplay();
   delay(500);
   number++;
@@ -170,7 +173,7 @@ if (disp[z] ==1){
 //topright
 if(disp[z] == 2){
   matrix.clear();
-  matrix.drawBitmap(0, 0, topright_bmp, 8, 8, LED_RED);
+  matrix.drawBitmap(0, 0, topright_bmp, 8, 8, LED_GREEN);
   matrix.writeDisplay();
   delay(500);
   number++;
@@ -180,7 +183,7 @@ if(disp[z] == 2){
 //botleft
 if(disp[z] == 3){
   matrix.clear();
-  matrix.drawBitmap(0, 0, botleft_bmp, 8, 8, LED_RED);
+  matrix.drawBitmap(0, 0, botleft_bmp, 8, 8, LED_GREEN);
   matrix.writeDisplay();
   delay(500);
   number++;
@@ -190,14 +193,14 @@ if(disp[z] == 3){
 //botright
  if (disp[z] == 4) {
   matrix.clear();
-  matrix.drawBitmap(0, 0, botright_bmp, 8, 8, LED_RED);
+  matrix.drawBitmap(0, 0, botright_bmp, 8, 8, LED_GREEN);
   matrix.writeDisplay();
   delay(500);
   number++;
   continue;
 } 
 else if (rundisp = false);
-
+matrix.clear();
 }  // end of display loop
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   //Beginning of Person test loop
@@ -277,12 +280,14 @@ if(Passed){
         matrix.writeDisplay();
         delay(100);
       }
+       Passed = true;
+       number = 0;
+       }
+     // End of fail loop
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
        
        
-       
-       
-       
-   }
+   
    
    
    
