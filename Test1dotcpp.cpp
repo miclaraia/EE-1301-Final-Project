@@ -44,18 +44,18 @@ D1 = IC2 clock
 //%%%%%%%%%%%%%%%%%%%
 Adafruit_BicolorMatrix matrix = Adafruit_BicolorMatrix();
 #define R 5 // r for rounds
-int TL_BPIN = D6;
-int TR_BPIN = D4;
-int BL_BPIN = D5;
-int BR_BPIN = D3;
-int SZ_BPIN = D2;
+int TL_ButPIN = D6;
+int TR_ButPIN = D4;
+int BL_ButPIN = D5;
+int BR_ButPIN = D3;
+int SZ_ButPIN = D2;
 
 void setup() {
- pinMode(TL_BPIN, INPUT_PULLDOWN);
- pinMode(TR_BPIN, INPUT_PULLDOWN);
- pinMode(BL_BPIN, INPUT_PULLDOWN);
- pinMode(BR_BPIN, INPUT_PULLDOWN);
- pinMode(SZ_BPIN, INPUT_PULLDOWN);
+ pinMode(TL_ButPIN, INPUT_PULLDOWN);
+ pinMode(TR_ButPIN, INPUT_PULLDOWN);
+ pinMode(BL_ButPIN, INPUT_PULLDOWN);
+ pinMode(BR_ButPIN, INPUT_PULLDOWN);
+ pinMode(SZ_ButPIN, INPUT_PULLDOWN);
  
  
   Serial.begin(9600);
@@ -196,7 +196,7 @@ if(disp[z] == 3){
   number++;
   continue;
 } 
-else if rundisp = false;
+else if (rundisp = false);
 
 }  // end of display loop
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
