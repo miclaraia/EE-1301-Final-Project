@@ -1,4 +1,3 @@
-
 class MyTimer {
 public:
     unsigned int timer;
