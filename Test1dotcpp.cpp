@@ -278,7 +278,8 @@ if(Passed){
         delay(100);
       }
        
-       
+       Passed = true;
+       number = 0;
        
        
        
