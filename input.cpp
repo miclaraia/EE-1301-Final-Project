@@ -1,4 +1,5 @@
 #include "objects.h"
+#include "modules.h"
 #include "debug.h"
 
 template<class T>
