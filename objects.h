@@ -27,28 +27,7 @@ public:
     MyTimer(int duration);
 };
 
-class Module {
-public:
-    bool active = false;
-    MyTimer *timer;
 
-    void run();
-};
-
-struct Button;
-class Input : Module {
-    List <Button> *buttons;
-    List <int> *last_pressed;
-
-public:
-    Input();
-
-    void addButton(Button button);
-    void clearPresses();
-    void addPress(Button *button);
-    void run();
-
-};
 
 struct Button {
     int last = LOW;

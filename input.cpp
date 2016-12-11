@@ -1,28 +1,6 @@
 #include "objects.h"
-
-template<class T>
-List<T>::List(int length) {
-    this->max = length;
-    list = new T[length];
-}
-
-template<class T>
-void List<T>::add(T t) {
-    if (count < max) {
-        list[count] = t;
-        count++;
-    }
-}
-
-template<class T>
-void List<T>::clear() {
-    count = 0;
-}
-
-template<class T>
-T * List<T>::get(int index) {
-    return &list[index];
-}
+#include "modules.h"
+#include "debug.h"
 
 Input::Input() {
     buttons = new List<Button>(10);
@@ -45,6 +23,15 @@ Input::Input() {
 
     button.pin = BUTTON_SNOOZE;
     addButton(button);
+
+    initButtons();
+}
+
+void Input::initButtons() {
+    for (int i = 0; i < buttons->count; i++) {
+        int pin = buttons->get(i)->pin;
+        pinMode(pin, INPUT_PULLDOWN);
+    }
 }
 
 void Input::addButton(Button button) {
@@ -52,6 +39,7 @@ void Input::addButton(Button button) {
 }
 
 void Input::addPress(Button *button) {
+    debugButton(button->pin);
     if (last_pressed->count + 1 >= last_pressed->max) {
         for (int i = 1; i < last_pressed->count; i++) {
             last_pressed->list[i - 1] = last_pressed->list[i];
@@ -70,9 +58,13 @@ void Input::run() {
         Button *button;
         for (int i = 0; i < buttons->count; i++) {
             button = buttons->get(i);
+
             button->current = digitalRead(button->pin);
 
             if (button->current == HIGH && button->last == LOW) {
+                std::stringstream ss;
+                ss << "i: " << i;
+                debug(&ss);
                 addPress(button);
             }
 
