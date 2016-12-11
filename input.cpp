@@ -1,7 +1,30 @@
 #include "objects.h"
 #include "definitions.h"
 
+List::List(int length) {
+    this->max = length;
+    list = new T[length];
+}
+
+void List::add(T t) {
+    if (count < max) {
+        list[count] = t;
+        count++;
+    }
+}
+
+void List::clear() {
+    count = 0;
+}
+
+*T get(int index) {
+    return &list[index];
+}
+
 Input::Input() {
+    buttons = List<Button>(5);
+    last_pressed = List<int>(LAST_PRESSED_LENGTH);
+
     timer = new MyTimer(100);
     Button button;
 
@@ -22,31 +45,34 @@ Input::Input() {
 }
 
 void Input::addButton(Button button) {
-    buttons[count] = button;
-    count++;
+    buttons.add(button);
 }
 
 void Input::addPress(Button *button) {
-    if (last_pressed_count + 1 >= LAST_PRESSED_LENGTH) {
-        // TODO shift array left by 1
-        // drop leftmost element
-        // decrement count
+    if (lassed_pressed.count + 1 >= last_pressed.max) {
+        for (int i = 1; i < last_pressed.count; i++) {
+            last_pressed.list[i - 1] = last_pressed.list[i];
+        }
     }
 
-    last_pressed[last_pressed_count] = button->pin;
-    last_pressed_count++;
+    last_pressed.list[last_pressed.count - 1] = button->pin;
+}
+
+void Input::clearPresses() {
+    last_pressed.clear();
 }
 
 Input::run() {
     if (active) {
         Button *button;
         for (int i = 0; i < count; i++) {
-            button = *buttons[i];
+            button = buttons.get(i);
             button->current = digitalRead(BUTTON);
-            if (button->current == HIGH && button->last == LOW) {
-                
             
-            selectRate(blinkState);
+            if (button->current == HIGH && button->last == LOW) {
+                addPress(button);
+
+            button->last = button->current;
         }
     }
 }

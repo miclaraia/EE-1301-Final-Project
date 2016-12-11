@@ -21,17 +21,17 @@ public:
     void run();
 };
 
+struct Button;
 class Input : Module {
-    Button buttons[10];
-    int last_pressed[LAST_PRESSED_LENGTH];
-    int last_pressed_count;
-    int count = 0;
+    List<Button> buttons;
+    List<int> last_pressed;
+
+public:
+    Input();
 
     void addButton(Button button);
     void clearPresses();
     void addPress(Button *button);
-public:
-    Input();
 
 };
 
@@ -39,4 +39,17 @@ struct Button {
     int last = LOW;
     int current = LOW;
     int pin;
+}
+
+template <class T>
+class List {
+public:
+    int count = 0;
+    int max;
+    T *list;
+
+    List(int length);
+    void add(T t);
+    void clear();
+    *T get(int index);
 }
