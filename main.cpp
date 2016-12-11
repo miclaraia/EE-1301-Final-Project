@@ -1,5 +1,6 @@
 #include "definitions.h"
 #include "objects.h"
+#include "modules.h"
 #include "adafruit-led-backpack.h"
 #include <sstream>
 #include <string>
