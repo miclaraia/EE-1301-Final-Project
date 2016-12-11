@@ -1,5 +1,18 @@
 #include "application.h"
 
+template <class T>
+class List {
+public:
+    int count = 0;
+    int max;
+    T *list;
+
+    List(int length);
+    void add(T t);
+    void clear();
+    T* get(int index);
+};
+
 class MyTimer {
 public:
     unsigned int timer;
@@ -21,7 +34,7 @@ public:
     void run();
 };
 
-struct Button;
+class Button;
 class Input : Module {
     List<Button> buttons;
     List<int> last_pressed;
@@ -35,21 +48,8 @@ public:
 
 };
 
-struct Button {
+class Button {
     int last = LOW;
     int current = LOW;
     int pin;
-}
-
-template <class T>
-class List {
-public:
-    int count = 0;
-    int max;
-    T *list;
-
-    List(int length);
-    void add(T t);
-    void clear();
-    *T get(int index);
-}
+};

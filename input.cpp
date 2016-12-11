@@ -1,23 +1,27 @@
 #include "objects.h"
 #include "definitions.h"
 
-List::List(int length) {
+template<class T>
+List<T>::List(int length) {
     this->max = length;
     list = new T[length];
 }
 
-void List::add(T t) {
+template<class T>
+void List<T>::add(T t) {
     if (count < max) {
         list[count] = t;
         count++;
     }
 }
 
-void List::clear() {
+template<class T>
+void List<T>::clear() {
     count = 0;
 }
 
-*T get(int index) {
+template<class T>
+T * List<T>::get(int index) {
     return &list[index];
 }
 
@@ -68,7 +72,7 @@ Input::run() {
         for (int i = 0; i < count; i++) {
             button = buttons.get(i);
             button->current = digitalRead(BUTTON);
-            
+
             if (button->current == HIGH && button->last == LOW) {
                 addPress(button);
 
