@@ -31,3 +31,11 @@ public:
     HeartBeat();
     void run();
 };
+
+class Spearker : public Module {
+
+}
+
+class Display : public Module {
+    
+}
