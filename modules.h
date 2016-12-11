@@ -5,6 +5,7 @@ public:
     MyTimer *timer;
 
     void run();
+    void setup();
 };
 
 struct Button;
@@ -16,11 +17,11 @@ public:
 
 //public:
     Input();
+    void run();
 
     void addButton(Button button);
     void clearPresses();
     void addPress(Button *button);
-    void run();
 
 };
 
