@@ -26,6 +26,7 @@ public:
 
     bool check();
     void reset();
+    void reset(int duration);
 
     MyTimer(int duration);
 };
