@@ -44,6 +44,7 @@ void debug(stringstream *ss) {
 
 void debugArray(int *list, int length) {
     stringstream ss;
+    ss << "Count: " << length << "";
     ss << "List of presses: ";
     for (int i = 0; i < length; i++) {
         addPin(*list, &ss);
