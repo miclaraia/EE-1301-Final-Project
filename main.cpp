@@ -1,7 +1,8 @@
-#include definitions.h
-#include timer.h
+#include "definitions.h"
+#include "objects.h"
+#include "adafruit-led-backpack.h"
 
-Module *clock;
+Module *myClock;
 Module *simon;
 Module *speaker;
 
@@ -10,7 +11,7 @@ void setup() {
 }
 
 void loop() {
-    if (simon->timer->check()) {
+    /*if (simon->timer->check()) {
         simon->run();
-    }
+    }*/
 }

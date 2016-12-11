@@ -1,5 +1,4 @@
 #include "objects.h"
-#include "definitions.h"
 
 template<class T>
 List<T>::List(int length) {
@@ -26,8 +25,8 @@ T * List<T>::get(int index) {
 }
 
 Input::Input() {
-    buttons = List<Button>(5);
-    last_pressed = List<int>(LAST_PRESSED_LENGTH);
+    buttons = new List<Button>(10);
+    last_pressed = new List<int>(LAST_PRESSED_LENGTH);
 
     timer = new MyTimer(100);
     Button button;
@@ -35,46 +34,47 @@ Input::Input() {
     button.pin = BUTTON_TOPLEFT;
     addButton(button);
 
-    button.pin = Button_TOPRIGHT;
+    button.pin = BUTTON_TOPRIGHT;
     addButton(button);
 
-    button.pin = Button_BOTTOMRIGHT;
+    button.pin = BUTTON_BOTTOMRIGHT;
     addButton(button);
 
-    button.pin = Button_BOTTOMLEFT;
+    button.pin = BUTTON_BOTTOMLEFT;
     addButton(button);
 
-    button.pin = Button_SNOOZE;
+    button.pin = BUTTON_SNOOZE;
     addButton(button);
 }
 
 void Input::addButton(Button button) {
-    buttons.add(button);
+    buttons->add(button);
 }
 
 void Input::addPress(Button *button) {
-    if (lassed_pressed.count + 1 >= last_pressed.max) {
-        for (int i = 1; i < last_pressed.count; i++) {
-            last_pressed.list[i - 1] = last_pressed.list[i];
+    if (last_pressed->count + 1 >= last_pressed->max) {
+        for (int i = 1; i < last_pressed->count; i++) {
+            last_pressed->list[i - 1] = last_pressed->list[i];
         }
     }
 
-    last_pressed.list[last_pressed.count - 1] = button->pin;
+    last_pressed->list[last_pressed->count - 1] = button->pin;
 }
 
 void Input::clearPresses() {
-    last_pressed.clear();
+    last_pressed->clear();
 }
 
-Input::run() {
+void Input::run() {
     if (active) {
         Button *button;
-        for (int i = 0; i < count; i++) {
-            button = buttons.get(i);
-            button->current = digitalRead(BUTTON);
+        for (int i = 0; i < buttons->count; i++) {
+            button = buttons->get(i);
+            button->current = digitalRead(button->pin);
 
             if (button->current == HIGH && button->last == LOW) {
                 addPress(button);
+            }
 
             button->last = button->current;
         }

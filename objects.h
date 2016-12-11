@@ -1,4 +1,5 @@
 #include "application.h"
+#include "definitions.h"
 
 template <class T>
 class List {
@@ -34,10 +35,10 @@ public:
     void run();
 };
 
-class Button;
+struct Button;
 class Input : Module {
-    List<Button> buttons;
-    List<int> last_pressed;
+    List <Button> *buttons;
+    List <int> *last_pressed;
 
 public:
     Input();
@@ -45,10 +46,11 @@ public:
     void addButton(Button button);
     void clearPresses();
     void addPress(Button *button);
+    void run();
 
 };
 
-class Button {
+struct Button {
     int last = LOW;
     int current = LOW;
     int pin;

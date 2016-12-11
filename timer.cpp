@@ -1,7 +1,6 @@
 #include "objects.h"
 
-MyTimer::MyTimer(unsigned int timer, int duration) {
-    this->timer = timer;
+MyTimer::MyTimer(int duration) {
     this->duration = duration;
 }
 
