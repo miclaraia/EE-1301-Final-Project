@@ -10,7 +10,7 @@ void setup() {
 }
 
 void loop() {
-    if (simon->timer.check()) {
+    if (simon->timer->check()) {
         simon->run();
     }
 }
