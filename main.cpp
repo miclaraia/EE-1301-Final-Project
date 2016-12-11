@@ -18,10 +18,6 @@ void setup() {
     input->active = true;
 
     pinMode(D7, OUTPUT);
-
-
-
-    Particle.variable("tempval", input->last_pressed->list);
 }
 
 void loop() {

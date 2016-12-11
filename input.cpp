@@ -64,7 +64,7 @@ void Input::addButton(Button button) {
 
 void Input::addPress(Button *button) {
     debugButton(button->pin);
-    if (button->pin == BUTTON_SNOOZE) debugArray((int*) last_pressed->list, last_pressed->count);
+    if (button->pin == BUTTON_SNOOZE) debugArray(last_pressed->list, last_pressed->count);
     if (last_pressed->count + 1 >= last_pressed->max) {
         for (int i = 1; i < last_pressed->count; i++) {
             last_pressed->list[i - 1] = last_pressed->list[i];

@@ -1,4 +1,5 @@
 #include "application.h"
 #include "definitions.h"
 #include "objects.h"
+#include "debug.h"
 #include "modules.h"

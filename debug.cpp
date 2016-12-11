@@ -1,4 +1,6 @@
-#include "debug.h"
+#include "application.h"
+#include <sstream>
+#include <string>
 #include "objects.h"
 
 using std::string;
@@ -40,12 +42,14 @@ void debug(stringstream *ss) {
     Serial.print(s.c_str());
 }
 
-void debugArray(List<int> *list) {
+void debugArray(int *list, int length) {
     stringstream ss;
     ss << "List of presses: ";
-    for (int i = 0; i < list->count; i++) {
-        addPin(list->get(i), &ss);
+    for (int i = 0; i < length; i++) {
+        addPin(*list, &ss);
         ss << ", ";
+
+        list++;
     }
 
     debug(&ss);

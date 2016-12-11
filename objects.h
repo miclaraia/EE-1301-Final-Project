@@ -1,3 +1,6 @@
+#ifndef OBJECTS_H_
+#define OBJECTS_H_
+
 #include "application.h"
 #include "definitions.h"
 
@@ -32,3 +35,5 @@ struct Button {
     int current = LOW;
     int pin;
 };
+
+#endif
