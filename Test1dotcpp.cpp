@@ -56,30 +56,31 @@ void setup() {
  pinMode(BL_ButPIN, INPUT_PULLDOWN);
  pinMode(BR_ButPIN, INPUT_PULLDOWN);
  pinMode(SZ_ButPIN, INPUT_PULLDOWN);
- matrix.setRotation(1); // proper orientation
  
+ matrix.setTextWrap(false);
+ matrix.setCursor(0,0);
   Serial.begin(9600);
   Serial.println("8x8 LED Matrix Test");
-  matrix.begin(0x71);  // pass in the address
-
+  matrix.begin(0x70);  // pass in the address
+  
  
 }
 
 static const uint8_t
   topleft_bmp[] =
-  { B11110000,
-    B11110000,
-    B11110000,
-    B11110000,
+  { B11100001,
+    B11100001,
+    B11100001,
+    B11100001,
     B00000000,
     B00000000,
     B00000000,
     B00000000 },
   topright_bmp[] =
-  { B00001111,
-    B00001111,
-    B00001111,
-    B00001111,
+  { B00011110,
+    B00011110,
+    B00011110,
+    B00011110,
     B00000000,
     B00000000,
     B00000000,
@@ -89,219 +90,251 @@ static const uint8_t
     B00000000,
     B00000000,
     B00000000,
-    B11110000,
-    B11110000,
-    B11110000,
-    B11110000 },
+    B11100001,
+    B11100001,
+    B11100001,
+    B11100001 },
  botright_bmp[] =
   { B00000000,
     B00000000,
     B00000000,
     B00000000,
-    B00001111,
-    B00001111,
-    B00001111,
-    B00001111 };
+    B00011110,
+    B00011110,
+    B00011110,
+    B00011110 },
+ X_bmp[] =
+  { B00000011,
+    B10000100,
+    B01001000,
+    B00110000,
+    B00110000,
+    B01001000,
+    B10000100,
+    B00000011 },
+ clean_bmp[] =
+  { B11111111,
+    B11111111,
+    B11111111,
+    B11111111,
+    B11111111,
+    B11111111,
+    B11111111,
+    B11111111 };
     
 void simon(){
     
-int number = 0;
-int disp[R+1];
-int check[R];
+    
+    int disp[R+1];
+    int check[R];
+    int rn =1;
     for(int i =0; i<R; i++){
         check[i]=0;
     }
-int TL_ButNow;
-int TR_ButNow;
-int BL_ButNow;
-int BR_ButNow;
-int SZ_ButNow;
-int TL_ButLast = 0;
-int TR_ButLast = 0;
-int BL_ButLast = 0;
-int BR_ButLast = 0;
-int SZ_ButLast = 0;
-
-bool ButOrd[R];
-    for(int i = 0; i<R;i++){
-        ButOrd[i] = false;
-    }
-bool rundisp = true;
-//bool TL_Butprs = false;
-//bool TR_Butprs = false;
-//bool BL_Butprs = false;
-//bool BR_Butprs = false;
-//bool SZ_Butprs = false;
-bool Passed = true;
-
-
-for (int A =0; A<R; A++){
+    int TL_ButNow;
+    int TR_ButNow;
+    int BL_ButNow;
+    int BR_ButNow;
+    int SZ_ButNow;
+    int TL_ButLast = 0;
+    int TR_ButLast = 0;
+    int BL_ButLast = 0;
+    int BR_ButLast = 0;
+    int SZ_ButLast = 0;
     
- // sets all the to be used values of disp to a value for it's corrsponding corner   
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if(number ==0){
-    for(int j = 0; j< R+1; j++){
-       disp[j] = random(3) + 1;
-       //disp[j] = 1;
-    }
-    disp[R] =0;
-    
-}
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-//Did they pass last round?
-if(Passed)
-rundisp = true;
-
-// the display loop
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if(rundisp)
-for(int z = 0; z < number+1; z++){
-    
-
-//topleft
-if (disp[z] ==1){
-  matrix.clear();
-  matrix.drawBitmap(0, 0, topleft_bmp, 8, 8, LED_GREEN);
-  matrix.writeDisplay();
-  delay(500);
-  number++;
-  continue;
-}
-
-//topright
-if(disp[z] == 2){
-  matrix.clear();
-  matrix.drawBitmap(0, 0, topright_bmp, 8, 8, LED_GREEN);
-  matrix.writeDisplay();
-  delay(500);
-  number++;
-  continue;
-}
-
-//botleft
-if(disp[z] == 3){
-  matrix.clear();
-  matrix.drawBitmap(0, 0, botleft_bmp, 8, 8, LED_GREEN);
-  matrix.writeDisplay();
-  delay(500);
-  number++;
-  continue;
-}
-
-//botright
- if (disp[z] == 4) {
-  matrix.clear();
-  matrix.drawBitmap(0, 0, botright_bmp, 8, 8, LED_GREEN);
-  matrix.writeDisplay();
-  delay(500);
-  number++;
-  continue;
-} 
-else if (rundisp = false);
-matrix.clear();
-}  // end of display loop
-  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  //Beginning of Person test loop
-  //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-  // Note*
-  //TL = 1
-  //TR = 2
-  //BL = 3
-  //BR = 4
-  // beginning of input loop
-  //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-if(Passed)
- while(1) {
-       TL_ButNow = digitalRead(TL_ButPIN);
-    if(TL_ButNow == HIGH && TL_ButLast == LOW) {
-    TL_ButLast = HIGH;
-    //TL_Butprs = true;
-    check[number-1]=1;
-    break;
-    }
-       TR_ButNow = digitalRead(TR_ButPIN);
-    if(TR_ButNow == HIGH && TR_ButLast == LOW) {
-    TR_ButLast = HIGH;
-    //TR_Butprs = true;
-    check[number-1]=2;
-    break;
-    }
-      BL_ButNow = digitalRead(BL_ButPIN);
-    if(BL_ButNow == HIGH && BL_ButLast == LOW) {
-    BL_ButLast = HIGH;
-    //BL_Butprs = true;
-    check[number-1]=3;
-    break;
-    }
-      BR_ButNow = digitalRead(BR_ButPIN);
-    if(BR_ButNow == HIGH && BR_ButLast == LOW) {
-    BR_ButLast = HIGH;
-    //BR_Butprs = true;
-    check[number-1]=4;
-    break;
-    }
-      SZ_ButNow = digitalRead(SZ_ButPIN);
-    if(SZ_ButNow == HIGH && SZ_ButLast == LOW) {
-    SZ_ButLast = HIGH;
-    //SZ_Butprs = true;
-    break;
-    }
-
- }// end of thumbup (input) loop
-  // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-  // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-  // check to see if the correct order, i.e. check loop
-if(Passed){
-     for(int i=0; i<number; i++)
-        if(check[i] == disp [i])
-            ButOrd[i] = true;
-     for(int i=0; i<number; i++)
-        if(!ButOrd[i]){
-            Passed = false;
-            break;
+    bool ButOrd[R];
+        for(int i = 0; i<R;i++){
+            ButOrd[i] = false;
         }
-}
-   //end of check loop
-   //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&     
-   //end of Person test loop
-   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-   //beginning of the you failed loop
-   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-   if (!Passed){
-     matrix.setTextWrap(false);  // we dont want text to wrap so it scrolls nicely
-     matrix.setTextSize(1);
-     matrix.setTextColor(LED_GREEN);
-      for (int8_t x=7; x>=-36; x--) {
-        matrix.clear();
-        matrix.setCursor(x,0);
-        matrix.print("FAIL");
-        matrix.writeDisplay();
-        delay(100);
-      }
-       Passed = true;
-       number = 0;
+    bool rundisp = true;
+    //bool TL_Butprs = false;
+    //bool TR_Butprs = false;
+    //bool BL_Butprs = false;
+    //bool BR_Butprs = false;
+    //bool SZ_Butprs = false;
+    bool Passed = true;
+    
+    
+    for (int A =0; A<R; A++){
+        
+     // sets all the to be used values of disp to a value for it's corrsponding corner   
+    //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    if(rn ==1){
+        for(int j = 0; j< R; j++){
+           disp[j] = random(3) + 1;
+           //disp[j] = 1;
+        }
+        disp[R] =0;
+        
+    }
+    //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    
+    //Did they pass last round?
+    if(Passed)
+    rundisp = true;
+    
+    // the display loop
+    //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    if(rundisp)
+    for(int z = 0; z < rn; z++){
+     
+   
+    //topleft
+    if (disp[z] ==1){
+      matrix.clear();
+      matrix.drawBitmap(0, 0, topleft_bmp, 8, 8, LED_GREEN);
+      matrix.writeDisplay();
+      delay(500);
+      matrix.writeDisplay();
+    
+      matrix.clear();
+      continue;
+    }
+    
+    //topright
+    if(disp[z] == 2){
+      matrix.clear();
+      matrix.drawBitmap(0, 0, topright_bmp, 8, 8, LED_GREEN);
+      matrix.writeDisplay();
+      delay(500);
+      matrix.clear();
+      matrix.writeDisplay();
+      
+      continue;
+    }
+    
+    //botleft
+    if(disp[z] == 3){
+      matrix.clear();
+      matrix.drawBitmap(0, 0, botleft_bmp, 8, 8, LED_GREEN);
+      matrix.writeDisplay();
+      delay(500);
+      matrix.clear();
+      matrix.writeDisplay();
+      
+      continue;
+    }
+    
+    //botright
+     if (disp[z] == 4) {
+      matrix.clear();
+      matrix.drawBitmap(0, 0, botright_bmp, 8, 8, LED_GREEN);
+      matrix.writeDisplay();
+      delay(500);
+      matrix.writeDisplay();
+      
+      matrix.clear();
+      continue;
+    } 
+    else if (rundisp = false);
+    //matrix.clear();
+    }  // end of display loop
+      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    //rn++;
+      //Beginning of Person test loop
+      //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+      // Note*
+      //TL = 1
+      //TR = 2
+      //BL = 3
+      //BR = 4
+      // beginning of input loop
+      //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+    if(Passed)
+     for(int i=0; i<rn;) {
+           TL_ButNow = digitalRead(TL_ButPIN);
+        if(TL_ButNow == HIGH && TL_ButLast == LOW) {
+        TL_ButLast = HIGH;
+        //TL_Butprs = true;
+        check[rn-1]=1;
+        i++;
+        //break;
+        }
+           TR_ButNow = digitalRead(TR_ButPIN);
+        if(TR_ButNow == HIGH && TR_ButLast == LOW) {
+        TR_ButLast = HIGH;
+        //TR_Butprs = true;
+        check[rn-1]=2;
+        i++;
+        //break;
+        }
+          BL_ButNow = digitalRead(BL_ButPIN);
+        if(BL_ButNow == HIGH && BL_ButLast == LOW) {
+        BL_ButLast = HIGH;
+        //BL_Butprs = true;
+        check[rn-1]=3;
+        i++;
+       // break;
+        }
+          BR_ButNow = digitalRead(BR_ButPIN);
+        if(BR_ButNow == HIGH && BR_ButLast == LOW) {
+        BR_ButLast = HIGH;
+        //BR_Butprs = true;
+        check[rn-1]=4;
+        i++;
+       // break;
+        }
+          SZ_ButNow = digitalRead(SZ_ButPIN);
+        if(SZ_ButNow == HIGH && SZ_ButLast == LOW) {
+        SZ_ButLast = HIGH;
+        i++;
+        //SZ_Butprs = true;
+       // break;
+        }
+    
+     }// end of thumbup (input) loop
+      // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+      // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+      // check to see if the correct order, i.e. check loop
+    if(Passed){
+         for(int i=0; i<rn; i++)
+            if(check[i] == disp [i])
+                ButOrd[i] = true;
+         for(int i=0; i<rn; i++)
+            if(!ButOrd[i]){
+                Passed = false;
+                break;
+            }
+            rn++;
+    }
+       //end of check loop
+       //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&     
+       //end of Person test loop
+       //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+       //beginning of the you failed loop
+       //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+       if (!Passed){
+        for(int i=0; i<2; i++){
+          matrix.clear();
+          matrix.drawBitmap(0, 0, X_bmp, 8, 8, LED_GREEN);
+          matrix.writeDisplay();
+          delay(500);
+          matrix.drawBitmap(0, 0, clean_bmp, 8, 8, LED_OFF);
+          matrix.writeDisplay();
+          delay(500);
+          
+          }
+           Passed = true;
+           rn = 0;
+           }
+         // End of fail loop
+         //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           
+    //<<<<<<< HEAD
+           
+       
+    //=======
+           
+           
+           
        }
-     // End of fail loop
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-       
-<<<<<<< HEAD
-       
-   
-=======
-       Passed = true;
-       number = 0;
+    //>>>>>>> d8649f486f8a29e2023d1a9c50aacf1d6e3594c5
        
        
-       
-   }
->>>>>>> d8649f486f8a29e2023d1a9c50aacf1d6e3594c5
-   
-   
    
 } // end of A
-} //end of simon
+ //end of simon
 
 void loop() {
 simon();
