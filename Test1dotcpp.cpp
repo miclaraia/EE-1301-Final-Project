@@ -42,117 +42,120 @@ D1 = IC2 clock
 
 */
 //%%%%%%%%%%%%%%%%%%%
-Adafruit_BicolorMatrix matrix = Adafruit_BicolorMatrix();
-#define R 5 // r for rounds
-int TL_ButPIN = D6;
-int TR_ButPIN = D4;
-int BL_ButPIN = D5;
-int BR_ButPIN = D3;
-int SZ_ButPIN = D2;
+//Adafruit_BicolorMatrix matrix = Adafruit_BicolorMatrix();
+//#define R 5 // r for rounds
+// int BUTTON_TOPLEFT = D6;
+// int BUTTON_TOPRIGHT = D4;
+// int BUTTON_BOTTOMLEFT = D5;
+// int BR_ButPIN = D3;
+// int SZ_ButPIN = D2;
 
 void setup() {
- pinMode(TL_ButPIN, INPUT_PULLDOWN);
- pinMode(TR_ButPIN, INPUT_PULLDOWN);
- pinMode(BL_ButPIN, INPUT_PULLDOWN);
- pinMode(BR_ButPIN, INPUT_PULLDOWN);
- pinMode(SZ_ButPIN, INPUT_PULLDOWN);
+ // pinMode(BUTTON_TOPLEFT, INPUT_PULLDOWN);
+ // pinMode(BUTTON_TOPRIGHT, INPUT_PULLDOWN);
+ // pinMode(BUTTON_BOTTOMLEFT, INPUT_PULLDOWN);
+ // pinMode(BR_ButPIN, INPUT_PULLDOWN);
+ // pinMode(SZ_ButPIN, INPUT_PULLDOWN);
  
- matrix.setTextWrap(false);
- matrix.setCursor(0,0);
-  Serial.begin(9600);
-  Serial.println("8x8 LED Matrix Test");
-  matrix.begin(0x70);  // pass in the address
+ // matrix.setTextWrap(false);
+ // matrix.setCursor(0,0);
+ //  Serial.begin(9600);
+ //  Serial.println("8x8 LED Matrix Test");
+ //  matrix.begin(0x70);  // pass in the address
   
  
 }
 
-static const uint8_t
-  topleft_bmp[] =
-  { B11100001,
-    B11100001,
-    B11100001,
-    B11100001,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000 },
-  topright_bmp[] =
-  { B00011110,
-    B00011110,
-    B00011110,
-    B00011110,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00000000 },
-  botleft_bmp[] =
-  { B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B11100001,
-    B11100001,
-    B11100001,
-    B11100001 },
- botright_bmp[] =
-  { B00000000,
-    B00000000,
-    B00000000,
-    B00000000,
-    B00011110,
-    B00011110,
-    B00011110,
-    B00011110 },
- X_bmp[] =
-  { B00000011,
-    B10000100,
-    B01001000,
-    B00110000,
-    B00110000,
-    B01001000,
-    B10000100,
-    B00000011 },
- clean_bmp[] =
-  { B11111111,
-    B11111111,
-    B11111111,
-    B11111111,
-    B11111111,
-    B11111111,
-    B11111111,
-    B11111111 };
+// static const uint8_t
+//   topleft_bmp[] =
+//   { B11100001,
+//     B11100001,
+//     B11100001,
+//     B11100001,
+//     B00000000,
+//     B00000000,
+//     B00000000,
+//     B00000000 },
+//   topright_bmp[] =
+//   { B00011110,
+//     B00011110,
+//     B00011110,
+//     B00011110,
+//     B00000000,
+//     B00000000,
+//     B00000000,
+//     B00000000 },
+//   botleft_bmp[] =
+//   { B00000000,
+//     B00000000,
+//     B00000000,
+//     B00000000,
+//     B11100001,
+//     B11100001,
+//     B11100001,
+//     B11100001 },
+//  botright_bmp[] =
+//   { B00000000,
+//     B00000000,
+//     B00000000,
+//     B00000000,
+//     B00011110,
+//     B00011110,
+//     B00011110,
+//     B00011110 },
+//  X_bmp[] =
+//   { B00000011,
+//     B10000100,
+//     B01001000,
+//     B00110000,
+//     B00110000,
+//     B01001000,
+//     B10000100,
+//     B00000011 },
+//  clean_bmp[] =
+//   { B11111111,
+//     B11111111,
+//     B11111111,
+//     B11111111,
+//     B11111111,
+//     B11111111,
+//     B11111111,
+//     B11111111 };
     
 void simon(){
     
     
-    int disp[R+1];
-    int check[R];
-    int rn =1;
+    // int disp[R+1];
+    // int check[R];
+    // int rn =1;
     for(int i =0; i<R; i++){
         check[i]=0;
     }
-    int TL_ButNow;
-    int TR_ButNow;
-    int BL_ButNow;
-    int BR_ButNow;
-    int SZ_ButNow;
-    int TL_ButLast = 0;
-    int TR_ButLast = 0;
-    int BL_ButLast = 0;
-    int BR_ButLast = 0;
-    int SZ_ButLast = 0;
+    // will need something different
+
+    // int TL_ButNow;
+    // int TR_ButNow;
+    // int BL_ButNow;
+    // int BR_ButNow;
+    // int SZ_ButNow;
+    // int TL_ButLast = 0;
+    // int TR_ButLast = 0;
+    // int BL_ButLast = 0;
+    // int BR_ButLast = 0;
+    // int SZ_ButLast = 0;
     
-    bool ButOrd[R];
-        for(int i = 0; i<R;i++){
-            ButOrd[i] = false;
-        }
-    bool rundisp = true;
-    //bool TL_Butprs = false;
-    //bool TR_Butprs = false;
-    //bool BL_Butprs = false;
-    //bool BR_Butprs = false;
-    //bool SZ_Butprs = false;
-    bool Passed = true;
+    // bool ButOrd[R];
+    //     for(int i = 0; i<R;i++){
+    //         ButOrd[i] = false;
+    //     }
+
+    // bool rundisp = true;
+    // //bool TL_Butprs = false;
+    // //bool TR_Butprs = false;
+    // //bool BL_Butprs = false;
+    // //bool BR_Butprs = false;
+    // //bool SZ_Butprs = false;
+    // bool Passed = true;
     
     
     for (int A =0; A<R; A++){
@@ -165,7 +168,7 @@ void simon(){
            //disp[j] = 1;
         }
         disp[R] =0;
-        
+         // this is now a call function
     }
     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -183,7 +186,7 @@ void simon(){
     //topleft
     if (disp[z] ==1){
       matrix.clear();
-      matrix.drawBitmap(0, 0, topleft_bmp, 8, 8, LED_GREEN);
+      matrix.drawBitmap(0, 0, topleft_bmp, 8, 8, LED_ON);
       matrix.writeDisplay();
       delay(500);
       matrix.writeDisplay();
@@ -195,7 +198,7 @@ void simon(){
     //topright
     if(disp[z] == 2){
       matrix.clear();
-      matrix.drawBitmap(0, 0, topright_bmp, 8, 8, LED_GREEN);
+      matrix.drawBitmap(0, 0, topright_bmp, 8, 8, LED_ON);
       matrix.writeDisplay();
       delay(500);
       matrix.clear();
@@ -207,7 +210,7 @@ void simon(){
     //botleft
     if(disp[z] == 3){
       matrix.clear();
-      matrix.drawBitmap(0, 0, botleft_bmp, 8, 8, LED_GREEN);
+      matrix.drawBitmap(0, 0, botleft_bmp, 8, 8, LED_ON);
       matrix.writeDisplay();
       delay(500);
       matrix.clear();
@@ -219,7 +222,7 @@ void simon(){
     //botright
      if (disp[z] == 4) {
       matrix.clear();
-      matrix.drawBitmap(0, 0, botright_bmp, 8, 8, LED_GREEN);
+      matrix.drawBitmap(0, 0, botright_bmp, 8, 8, LED_ON);
       matrix.writeDisplay();
       delay(500);
       matrix.writeDisplay();
@@ -243,7 +246,7 @@ void simon(){
       //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
     if(Passed)
      for(int i=0; i<rn;) {
-           TL_ButNow = digitalRead(TL_ButPIN);
+           TL_ButNow = digitalRead(BUTTON_TOPLEFT);
         if(TL_ButNow == HIGH && TL_ButLast == LOW) {
         TL_ButLast = HIGH;
         //TL_Butprs = true;
@@ -251,7 +254,7 @@ void simon(){
         i++;
         //break;
         }
-           TR_ButNow = digitalRead(TR_ButPIN);
+           TR_ButNow = digitalRead(BUTTON_TOPRIGHT);
         if(TR_ButNow == HIGH && TR_ButLast == LOW) {
         TR_ButLast = HIGH;
         //TR_Butprs = true;
@@ -259,7 +262,7 @@ void simon(){
         i++;
         //break;
         }
-          BL_ButNow = digitalRead(BL_ButPIN);
+          BL_ButNow = digitalRead(BUTTON_BOTTOMLEFT);
         if(BL_ButNow == HIGH && BL_ButLast == LOW) {
         BL_ButLast = HIGH;
         //BL_Butprs = true;
@@ -287,16 +290,16 @@ void simon(){
       // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
       // &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
       // check to see if the correct order, i.e. check loop
-    if(Passed){
-         for(int i=0; i<rn; i++)
-            if(check[i] == disp [i])
-                ButOrd[i] = true;
-         for(int i=0; i<rn; i++)
-            if(!ButOrd[i]){
-                Passed = false;
-                break;
-            }
-            rn++;
+    // if(Passed){
+    //      for(int i=0; i<rn; i++)
+    //         if(check[i] == disp [i])
+    //             ButOrd[i] = true;
+    //      for(int i=0; i<rn; i++)
+    //         if(!ButOrd[i]){
+    //             Passed = false;
+    //             break;
+    //         }
+    //         rn++;
     }
        //end of check loop
        //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&     
@@ -307,7 +310,7 @@ void simon(){
        if (!Passed){
         for(int i=0; i<2; i++){
           matrix.clear();
-          matrix.drawBitmap(0, 0, X_bmp, 8, 8, LED_GREEN);
+          matrix.drawBitmap(0, 0, X_bmp, 8, 8, LED_ON);
           matrix.writeDisplay();
           delay(500);
           matrix.drawBitmap(0, 0, clean_bmp, 8, 8, LED_OFF);
@@ -340,7 +343,7 @@ void loop() {
 simon();
 }
 /* matrix.clear();
-  matrix.drawBitmap(0, 0, smile_bmp, 8, 8, LED_GREEN);
+  matrix.drawBitmap(0, 0, smile_bmp, 8, 8, LED_ON);
   matrix.writeDisplay();
   delay(500);
 
@@ -355,7 +358,7 @@ simon();
   delay(500);
 
   matrix.clear();      // clear display
-  matrix.drawPixel(0, 0, LED_GREEN);
+  matrix.drawPixel(0, 0, LED_ON);
   matrix.writeDisplay();  // write the changes we just made to the display
   delay(500);
 
@@ -366,7 +369,7 @@ simon();
 
   matrix.clear();
   matrix.drawRect(0,0, 8,8, LED_RED);
-  matrix.fillRect(2,2, 4,4, LED_GREEN);
+  matrix.fillRect(2,2, 4,4, LED_ON);
   matrix.writeDisplay();  // write the changes we just made to the display
   delay(500);
 
@@ -377,7 +380,7 @@ simon();
 
   matrix.setTextWrap(false);  // we dont want text to wrap so it scrolls nicely
   matrix.setTextSize(1);
-  matrix.setTextColor(LED_GREEN);
+  matrix.setTextColor(LED_ON);
   for (int8_t x=7; x>=-36; x--) {
     matrix.clear();
     matrix.setCursor(x,0);
