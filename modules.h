@@ -81,3 +81,5 @@ public:
     void draw(int left, int right);
     void draw(Matrix *matrix, int which);
 };
+
+const uint8_t* getNumericalBitmap(int num);

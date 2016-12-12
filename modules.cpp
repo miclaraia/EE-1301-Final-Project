@@ -391,7 +391,7 @@ Display::Display() {
 void Display::setup() {
     active = true;
     state = 0;
-    timer = new MyTimer(500);
+    timer = new MyTimer(250);
 
     Matrix *matrix;
     matrix = new Adafruit_8x8matrix();
@@ -405,11 +405,12 @@ void Display::setup() {
     matrix2 = matrix;
 }
 void Display::run() {
-    draw(matrix1, state);
+    draw(matrix1, state / 5);
+    draw(matrix2, state);
 
     state ++;
-    if (state > 12 && state < 21) state = 21;
-    if (state > 27) state = 0;
+    //if (state > 12 && state < 21) state = 21;
+    if (state > 60) state = 0;
 }
 void Display::draw(int left, int right) {
     if (left > 0) {
@@ -425,21 +426,54 @@ void Display::draw(int left, int right) {
 void Display::draw(Matrix *matrix, int which) {
     matrix->clear();
 
-    if (which == 1)
-        matrix->drawBitmap(3,0, bmp_1, 4,8, LED_ON);
-    if (which == 2)
-        matrix->drawBitmap(3,0, bmp_2, 4,8, LED_ON);
-    if (which == 3)
-        matrix->drawBitmap(3,0, bmp_3, 4,8, LED_ON);
-    if (which == 4)
-        matrix->drawBitmap(3,0, bmp_4, 4,8, LED_ON);
-    else if (which < 20) {
-        matrix->setTextSize(1);
-        matrix->setTextWrap(false);
-        matrix->setTextColor(LED_ON);
-        matrix->setCursor(0,0);
-        matrix->print(which);
+    if (which < 100) {
+        int right = which % 10;
+        int left = which / 10;
+
+        const uint8_t *left_bitmap = getNumericalBitmap(left);
+        const uint8_t *right_bitmap = getNumericalBitmap(right);
+
+        if (which > 10)
+            matrix->drawBitmap(0,0, left_bitmap, 4,8, LED_ON);
+        matrix->drawBitmap(4,0, right_bitmap, 4,8, LED_ON);
     }
+    // if (which == 1)
+    //     matrix->drawBitmap(4,0, bmp_1, 4,8, LED_ON);
+    // else if (which == 2)
+    //     matrix->drawBitmap(4,0, bmp_2, 4,8, LED_ON);
+    // else if (which == 3)
+    //     matrix->drawBitmap(4,0, bmp_3, 4,8, LED_ON);
+    // else if (which == 4)
+    //     matrix->drawBitmap(4,0, bmp_4, 4,8, LED_ON);
+    // else if (which == 5)
+    //     matrix->drawBitmap(4,0, bmp_5, 4,8, LED_ON);
+    // else if (which == 6)
+    //     matrix->drawBitmap(4,0, bmp_6, 4,8, LED_ON);
+    // else if (which == 7)
+    //     matrix->drawBitmap(4,0, bmp_7, 4,8, LED_ON);
+    // else if (which == 8)
+    //     matrix->drawBitmap(4,0, bmp_8, 4,8, LED_ON);
+    // else if (which == 9)
+    //     matrix->drawBitmap(4,0, bmp_9, 4,8, LED_ON);
+    // else if (which == 10) {
+    //     matrix->drawBitmap(0,0, bmp_1, 4,8, LED_ON);
+    //     matrix->drawBitmap(4,0, bmp_0, 4,8, LED_ON);
+    // }
+    // else if (which == 11){
+    //     matrix->drawBitmap(0,0, bmp_1, 4,8, LED_ON);
+    //     matrix->drawBitmap(4,0, bmp_1, 4,8, LED_ON);
+    // }
+    // else if (which == 12){
+    //     matrix->drawBitmap(0,0, bmp_1, 4,8, LED_ON);
+    //     matrix->drawBitmap(4,0, bmp_2, 4,8, LED_ON);
+    //}
+    // else if (which > 4 && which < 20) {
+    //     matrix->setTextSize(1);
+    //     matrix->setTextWrap(false);
+    //     matrix->setTextColor(LED_ON);
+    //     matrix->setCursor(0,0);
+    //     matrix->print(which);
+    // }
     else if (which == TOPLEFT) 
         matrix->fillRect(0,0,4,4, LED_ON);
     else if (which == TOPRIGHT)
@@ -457,3 +491,45 @@ void Display::draw(Matrix *matrix, int which) {
 
     matrix->writeDisplay();
 }
+
+const uint8_t* getNumericalBitmap(int num) {
+    switch(num) {
+        case 1:
+        return bmp_1;
+
+        case 2:
+        return bmp_2;
+
+        case 3:
+        return bmp_3;
+
+        case 4:
+        return bmp_4;
+
+        case 5:
+        return bmp_5;
+
+        case 6:
+        return bmp_6;
+
+        case 7:
+        return bmp_7;
+
+        case 8:
+        return bmp_8;
+
+        case 9:
+        return bmp_9;
+
+        case 0:
+        return bmp_0;
+    }
+
+    return bmp_empty;
+}
+
+
+
+
+
+

@@ -15,12 +15,12 @@
 #define DOCHECKS 3
 #define PASSED 4
 
-#define TOPLEFT 21
-#define TOPRIGHT 22
-#define BOTTOMLEFT 23
-#define BOTTOMRIGHT 24
-#define TOP 25
-#define BOTTOM 26
-#define X 27
+#define TOPLEFT 101
+#define TOPRIGHT 102
+#define BOTTOMLEFT 103
+#define BOTTOMRIGHT 104
+#define TOP 105
+#define BOTTOM 106
+#define X 107
 
 #endif
