@@ -506,6 +506,23 @@ void Display::setTime(int hour, int minute) {
     right = minute;
 }
 
+void Display::lock(int address) {
+    lock_ = true;
+    key_ = address;
+}
+
+void Display::unlock(int address) {
+    if (key_ == address) {
+        lock_ = false;
+        key_ = 0;
+    }
+}
+
+bool Display::isLocked(int address) {
+    if (lock_ && address != key_) return true;
+    return false;
+}
+
 const uint8_t* getNumericalBitmap(int num) {
     switch(num) {
         case 1:
@@ -561,6 +578,52 @@ void Clock::run() {
 
 void Clock::setDisplay(Display *display)  {
     this->display = display;
+}
+
+Alarm::Alarm() {
+    setup();
+}
+
+void Alarm::setDisplay(Display *display) {
+    this->display = display;
+}
+
+void Alarm::setInput(Input *input) {
+    this->input = input;
+}
+
+void Alarm::run() {
+    List<int> *press = input->last_pressed;
+    int pin = press->get(press->count - 1);
+    if (pin == BUTTOM_TOPLEFT) {
+        state = ALARM_FLASH;
+        state_count = 0;
+    }
+
+    if (state == ALARM_FLASH) {
+        display->lock(this);
+        if (state_count % 2 == 0) flash();
+        else clear();
+
+        state_count ++;
+        if (state_count > 4) {
+            state = ALARM_NORMAL;
+            display->unlock(this);
+        }
+    }
+
+}
+
+void Alarm::setup() {
+    timer = new MyTimer(1000);
+}
+
+void Alarm::flash() {
+    display->setTime(hour, minute);
+}
+
+void Alarm::clear() {
+    display->clear();
 }
 
 

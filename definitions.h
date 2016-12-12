@@ -23,4 +23,10 @@
 #define BOTTOM 106
 #define X 107
 
+//  Section for Alarm state definitions
+#define ALARM_NORMAL 0
+#define ALARM_FLASH_FLASH 1;
+#define ALARM_ 0;
+#define
+
 #endif

@@ -75,6 +75,9 @@ class Display : public Module {
     Matrix *matrix2;
     int state = 0;
 
+    bool lock_ = false;
+    int  key_  = 0;
+
     int left = 0;
     int right = 0;
 
@@ -85,6 +88,10 @@ public:
     Display();
     void setup();
     void run();
+
+    void lock(int address);
+    void unlock(int address);
+    bool isLocked(int address);
 
     void setSimon(int state);
     void setTime(int hour, int minute);
@@ -102,5 +109,26 @@ public:
     void setup();
     void setDisplay(Display *display);
 };
+
+class Alarm : public Module {
+    Display *display;
+    Input *input;
+
+    int hour;
+    int minute;
+
+    int state = ALARM_NORMAL;
+    int state_count = 0;
+
+    void flash();
+    void clear();
+
+public:
+    Alarm();
+    void setDisplay(Display *display);
+    void setInput(Input *input);
+    void run();
+    void setup();
+}
 
 const uint8_t* getNumericalBitmap(int num);
