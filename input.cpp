@@ -1,3 +1,4 @@
+#include "adafruit-led-backpack.h"
 #include "objects.h"
 #include "modules.h"
 #include "debug.h"
@@ -114,4 +115,64 @@ void HeartBeat::run() {
     else digitalWrite(D7, LOW);
 
     state = !state;
+}
+
+// %%%%%%%%%%%% DISPLAY DRIVER
+static const uint8_t PROGMEM bmp_top[] =
+    { B11111111,
+      B11111111,
+      B11111111,
+      B11111111,
+      B00000000,
+      B00000000,
+      B00000000,
+      B00000000 };
+
+static const uint8_t PROGMEM bmp_bottom[] =
+    { B00000000,
+      B00000000,
+      B00000000,
+      B00000000,
+      B11111111,
+      B11111111,
+      B11111111,
+      B11111111 };
+
+
+Display::Display() {
+    setup();
+}
+
+void Display::setup() {
+    active = true;
+    timer = new MyTimer(500);
+
+    Adafruit_BicolorMatrix *matrix;
+    matrix = new Adafruit_BicolorMatrix();
+    matrix->begin(0x70);
+    matrix1 = matrix;
+
+    matrix = new Adafruit_BicolorMatrix();
+    matrix->begin(0x71);
+    matrix2 = matrix;
+}
+void Display::run() {
+    if (state == 0) {
+        matrix1->clear();
+        matrix1->drawBitmap(0, 0, bmp_top, 8, 8, LED_ON);
+        matrix1->writeDisplay();
+    } else if (state == 1) {
+        matrix1->clear();
+        matrix1->drawBitmap(0, 0, bmp_bottom, 8, 8, LED_ON);
+        matrix1->writeDisplay();
+    }
+
+    state ++;
+    if (state >= 2) state = 0;
+}
+void Display::draw(int left, int right) {
+
+}
+void Display::draw(char *str) {
+
 }

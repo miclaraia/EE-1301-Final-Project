@@ -1,4 +1,3 @@
-
 class Module {
 public:
     bool active = false;
@@ -32,10 +31,19 @@ public:
     void run();
 };
 
-class Spearker : public Module {
+class Speaker : public Module {
 
-}
+};
 
 class Display : public Module {
-    
-}
+    Adafruit_BicolorMatrix *matrix1;
+    Adafruit_BicolorMatrix *matrix2;
+    int state = 0;
+
+public:
+    Display();
+    void setup();
+    void run();
+    void draw(int left, int right);
+    void draw(char *str);
+};
