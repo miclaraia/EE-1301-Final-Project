@@ -130,6 +130,10 @@ public:
     void setInput(Input *input);
     void run();
     void setup();
+
+    void setAlarm(int minutes);
+    void setAlarm(int hour, int minutes);
+    int getAlarm();
 };
 
 const uint8_t* getNumericalBitmap(int num);

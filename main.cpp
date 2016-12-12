@@ -10,6 +10,8 @@ Display *display;
 Clock *myClock;
 Alarm *alarm;
 
+void setAlarm(int minutes);
+
 
 void setup() {
     Serial.begin(9600);
@@ -32,6 +34,8 @@ void setup() {
     pinMode(D7, OUTPUT);
 
 
+    Particle.function("set_alarm", setAlarm);
+    Particle.variable("get_alarm", alarm->getAlarm());
 }
 
 void loop() {
@@ -58,4 +62,8 @@ void loop() {
     }
 
     delay(100);
+}
+
+void setAlarm(int minutes) {
+    alarm->setAlarm(minutes);
 }
