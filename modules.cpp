@@ -288,7 +288,7 @@ if(active){
     }
     if(state == PASSED){
         active = false;
-        display->unlocklock(id);
+        display->unlock(id);
     }
 }
 
