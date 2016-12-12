@@ -30,6 +30,7 @@ class Simon : public Module {
     int disp[R+1];
     int check[R];
     int rn =1;
+    int state = 1;
     Adafruit_BicolorMatrix *matrix;
      //bool rundisp = true;
     // bool Passed = true;
@@ -38,9 +39,10 @@ class Simon : public Module {
   Input *buttons;
 
 public : 
-void disp();
+void display();
 void checks();
 void fail();
+void doButtons();
 Simon();
 void setinput(Input *buttoninputs);
 static const uint8_t
