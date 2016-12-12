@@ -93,6 +93,8 @@ var control = new function() {
         console.log(value);
         var hour = Math.floor(value / 60);
         var minute = value % 60;
+
+        if (minute < 10) minute = "0" + minute;
         self.elements.value.text(hour + ":" + minute);
     }
 
