@@ -79,6 +79,7 @@ void loop() {
 int setAlarm(String minutes) {
     int min = minutes.toInt();
     alarm->setAlarm(min);
+    alarm->displayAlarm();
     return 0;
 }
 
