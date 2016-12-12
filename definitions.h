@@ -6,3 +6,12 @@
 #define BUTTON_SNOOZE D2
 
 #define LAST_PRESSED_LENGTH 10
+
+#define TOPLEFT 1
+#define TOPRIGHT 2
+#define BOTTOMLEFT 3
+#define BOTTOMRIGHT 4
+#define DODISPLAY 1
+#define DOBUTTONS 2
+#define DOCHECKS 3
+#define PASSED 4

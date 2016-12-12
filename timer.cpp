@@ -16,3 +16,8 @@ bool MyTimer::check() {
 void MyTimer::reset() {
     timer = millis() + duration;
 }
+
+void MyTimer::reset(int duration) {
+    this->duration = duration;
+    reset();
+}
