@@ -1,7 +1,7 @@
 #include "adafruit-led-backpack.h"
 #include "objects.h"
 #include "modules.h"
-#include "debug.h"
+//#include "debug.h"
 
 template<class T>
 List<T>::List(int length) {
@@ -64,9 +64,9 @@ void Input::addButton(Button button) {
 }
 
 void Input::addPress(Button *button) {
-    debugButton(button->pin);
+    //debugButton(button->pin);
     if (button->pin == BUTTON_SNOOZE) {
-        debugArray(last_pressed->list, last_pressed->count);
+        //debugArray(last_pressed->list, last_pressed->count);
         last_pressed->clear();
     }
 
@@ -95,9 +95,9 @@ void Input::run() {
             button->current = digitalRead(button->pin);
 
             if (button->current == HIGH && button->last == LOW) {
-                std::stringstream ss;
-                ss << "i: " << i;
-                debug(&ss);
+                //std::stringstream ss;
+                //ss << "i: " << i;
+                //debug(&ss);
                 addPress(button);
             }
 
@@ -145,6 +145,7 @@ Display::Display() {
 
 void Display::setup() {
     active = true;
+    state = 0;
     timer = new MyTimer(500);
 
     Adafruit_BicolorMatrix *matrix;
@@ -158,10 +159,13 @@ void Display::setup() {
 }
 void Display::run() {
     if (state == 0) {
-        matrix1->clear();
-        matrix1->drawBitmap(0, 0, bmp_top, 8, 8, LED_ON);
-        matrix1->writeDisplay();
+        Serial.print("drawing top\n\r");
+        matrix2->clear();
+        matrix2->drawRect(0,0, 8,8, LED_ON);
+        matrix2->fillRect(2,2, 4,4, LED_ON);
+        matrix2->writeDisplay();
     } else if (state == 1) {
+        Serial.print("drawing bottom\n\r");
         matrix1->clear();
         matrix1->drawBitmap(0, 0, bmp_bottom, 8, 8, LED_ON);
         matrix1->writeDisplay();

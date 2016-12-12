@@ -1,7 +1,5 @@
 #include "definitions.h"
 #include "includes.h"
-#include <sstream>
-#include <string>
 
 Module *myClock;
 Module *simon;
@@ -17,16 +15,14 @@ void setup() {
     input = new Input();
     hb = new HeartBeat();
     display = new Display();
-    
+
     input->active = true;
 
     pinMode(D7, OUTPUT);
 }
 
 void loop() {
-    std::stringstream ss;
-    ss << "Running \n";
-    std::string s = ss.str();
+    Serial.print("running");
     //Serial.print(s.c_str());
     if (input->timer->check()) {
         input->run();
