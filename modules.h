@@ -116,14 +116,15 @@ class Simon : public Module {
   void setup();
 
   Input *buttons;
-
+  Display *display;
 public : 
+Simon();
 void setDisplay(Display *display);  
-void display();
+void simondisplay();
 void checking();
 void fail();
 void doButtons();
-Simon();
+
 void setinput(Input *buttoninputs);
 static const uint8_t
   topleft_bmp[],

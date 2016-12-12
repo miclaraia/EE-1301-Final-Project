@@ -174,73 +174,12 @@ void Input::run() {
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Jaydon's shit
 Simon::Simon(){
     timer = new MyTimer(100);
-
-    // static const uint8_t
-    //   topleft_bmp[] =
-    //   { B11100001,
-    //     B11100001,
-    //     B11100001,
-    //     B11100001,
-    //     B00000000,
-    //     B00000000,
-    //     B00000000,
-    //     B00000000 },
-    //   topright_bmp[] =
-    //   { B00011110,
-    //     B00011110,
-    //     B00011110,
-    //     B00011110,
-    //     B00000000,
-    //     B00000000,
-    //     B00000000,
-    //     B00000000 },
-    //   botleft_bmp[] =
-    //   { B00000000,
-    //     B00000000,
-    //     B00000000,
-    //     B00000000,
-    //     B11100001,
-    //     B11100001,
-    //     B11100001,
-    //     B11100001 },
-    //  botright_bmp[] =
-    //   { B00000000,
-    //     B00000000,
-    //     B00000000,
-    //     B00000000,
-    //     B00011110,
-    //     B00011110,
-    //     B00011110,
-    //     B00011110 },
-    //  X_bmp[] =
-    //   { B00000011,
-    //     B10000100,
-    //     B01001000,
-    //     B00110000,
-    //     B00110000,
-    //     B01001000,
-    //     B10000100,
-    //     B00000011 },
-    //  clean_bmp[] =
-    //   { B11111111,
-    //     B11111111,
-    //     B11111111,
-    //     B11111111,
-    //     B11111111,
-    //     B11111111,
-    //     B11111111,
-    //     B11111111 };
-        
-
-    // matrix =  new Adafruit_8x8matrix();
-    // matrix->setTextWrap(false);
-    // matrix->setCursor(0,0);
-    // matrix->begin(0x70);
     setup();
 }
 void Simon::setinput(Input *buttoninputs){
     buttons = buttoninputs;
-void Simon::setDisplay(Display *display)  {
+}
+void Simon::setDisplay(Display *display){
     this->display = display;
 }
 void Simon::setup(){
@@ -251,7 +190,7 @@ void Simon::setup(){
         disp[R] =0;
 
 }
-void Simon::display(){
+void Simon::simondisplay(){
     for(int z = 0; z < rn; z++){
          
        
@@ -332,7 +271,7 @@ if(active){
 
     if(state == DODISPLAY){
     display->lock((size_t) this);
-    display();
+    simondisplay();
     state++;}
     if(state == DOBUTTONS){
     doButtons();
