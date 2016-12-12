@@ -83,6 +83,7 @@ public:
 class Alarm : public Module {
     Display *display;
     Input *input;
+    Simon *simon;
 
     int hour;
     int minute;
@@ -97,6 +98,7 @@ public:
     Alarm();
     void setDisplay(Display *display);
     void setInput(Input *input);
+    void setSimon(Simon *simon);
     void run();
     void setup();
 

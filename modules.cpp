@@ -539,6 +539,10 @@ void Alarm::setInput(Input *input) {
     this->input = input;
 }
 
+void Alarm::setSimon(Simon *simon) {
+    this->simon = simon;
+}
+
 void Alarm::run() {
     List<int> *press = input->last_pressed;
     int pin = *(press->get(press->count - 1));
@@ -546,6 +550,10 @@ void Alarm::run() {
         input->clearPresses();
         state = ALARM_FLASH;
         state_count = 0;
+    } else if (pin == BUTTON_SNOOZE) {
+        input->clearPresses();
+        simon->active = true;
+        simon->timer->reset();
     }
 
     if (state == ALARM_FLASH) {

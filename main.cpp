@@ -33,6 +33,8 @@ void setup() {
 
     alarm->setInput(input);
 
+    alarm->setSimon(simon);
+
     pinMode(D7, OUTPUT);
 
 
