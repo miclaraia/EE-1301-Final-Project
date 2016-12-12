@@ -77,7 +77,7 @@ void loop() {
 }
 
 int setAlarm(String minutes) {
-    //alarm->setAlarm(minutes);
+    int min = std::atoi(minutes);
     return 0;
 }
 
