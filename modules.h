@@ -30,7 +30,7 @@ public:
 
 class Simon : public Module {
     int disp[R+1];
-    int check[R];
+    int checks[R];
     int rn =1;
     int state = 1;
     Matrix *matrix;
@@ -42,7 +42,7 @@ class Simon : public Module {
 
 public : 
 void display();
-void checks();
+void checking();
 void fail();
 void doButtons();
 Simon();

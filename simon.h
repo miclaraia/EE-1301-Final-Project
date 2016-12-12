@@ -11,7 +11,7 @@ class Simon : public Module {
 
 public : 
 void disp();
-void checks();
+void checking();
 void fail();
 Simon();
 void setinput(Input *buttoninputs);

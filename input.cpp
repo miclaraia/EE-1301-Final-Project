@@ -308,7 +308,7 @@ void Simon::buttons() {
     }
 
 }
-void Simon::checks(){
+void Simon::checking(){
     for(int i =0; i<rn; i++){
         if(buttons->last_pressed->list[i] == BUTTON_TOPLEFT)
             checks[i] = TOPLEFT;
@@ -355,7 +355,7 @@ if(active){
     buttons();
     }
     if(state == DOCHECKS){
-    checks();
+    checking();
     }
     if(state == PASSED){
         active = false;
