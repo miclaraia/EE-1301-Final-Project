@@ -82,4 +82,12 @@ public:
     void draw(Matrix *matrix, int which);
 };
 
+class Clock : public Module {
+    Display *display;
+
+public:
+    Clock();
+    setDisplay(Display *display);
+};
+
 const uint8_t* getNumericalBitmap(int num);

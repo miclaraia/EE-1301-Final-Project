@@ -528,6 +528,16 @@ const uint8_t* getNumericalBitmap(int num) {
     return bmp_empty;
 }
 
+Clock::Clock() {
+
+}
+
+void Clock::setup()
+
+void Clock::run() 
+
+void Clock::setDisplay(Display *display) 
+
 
 
 
