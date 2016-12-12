@@ -76,7 +76,7 @@ class Display : public Module {
     int state = 0;
 
     bool lock_ = false;
-    int  key_  = 0;
+    size_t  key_  = 0;
 
     int left = 0;
     int right = 0;
@@ -89,12 +89,13 @@ public:
     void setup();
     void run();
 
-    void lock(int address);
-    void unlock(int address);
-    bool isLocked(int address);
+    void lock(size_t address);
+    void unlock(size_t address);
+    bool isLocked(size_t address);
 
-    void setSimon(int state);
-    void setTime(int hour, int minute);
+    void setSimon(size_t lock_address, int state);
+    void setTime(size_t lock_address, int hour, int minute);
+    void clearDisplay(size_t lock_address);
 };
 
 class Clock : public Module {
@@ -129,6 +130,6 @@ public:
     void setInput(Input *input);
     void run();
     void setup();
-}
+};
 
 const uint8_t* getNumericalBitmap(int num);

@@ -479,6 +479,8 @@ void Display::draw(Matrix *matrix, int which) {
     //     matrix->setCursor(0,0);
     //     matrix->print(which);
     // }
+    else if (which == CLEAR)
+        matrix->drawBitmap(0,0, bmp_empty, 8,8, LED_ON);
     else if (which == TOPLEFT) 
         matrix->fillRect(0,0,4,4, LED_ON);
     else if (which == TOPRIGHT)
@@ -497,28 +499,37 @@ void Display::draw(Matrix *matrix, int which) {
     matrix->writeDisplay();
 }
 
-void Display::setSimon(int state) {
+void Display::setSimon(size_t lock_address, int state) {
 
 }
 
-void Display::setTime(int hour, int minute) {
-    left = hour;
-    right = minute;
+void Display::setTime(size_t lock_address, int hour, int minute) {
+    if (! isLocked(lock_address)) {
+        left = hour;
+        right = minute;
+    }
 }
 
-void Display::lock(int address) {
+void Display::clearDisplay(size_t lock_address) {
+    if (!isLocked(lock_address)) {
+        left = CLEAR;
+        right = CLEAR;
+    }
+}
+
+void Display::lock(size_t address) {
     lock_ = true;
     key_ = address;
 }
 
-void Display::unlock(int address) {
+void Display::unlock(size_t address) {
     if (key_ == address) {
         lock_ = false;
         key_ = 0;
     }
 }
 
-bool Display::isLocked(int address) {
+bool Display::isLocked(size_t address) {
     if (lock_ && address != key_) return true;
     return false;
 }
@@ -573,7 +584,7 @@ void Clock::run() {
     hour = Time.hour() + 6;
     minute = Time.minute();
 
-    display->setTime(hour, minute);
+    display->setTime((size_t) this, hour, minute);
 }
 
 void Clock::setDisplay(Display *display)  {
@@ -594,36 +605,38 @@ void Alarm::setInput(Input *input) {
 
 void Alarm::run() {
     List<int> *press = input->last_pressed;
-    int pin = press->get(press->count - 1);
-    if (pin == BUTTOM_TOPLEFT) {
+    int pin = *(press->get(press->count - 1));
+    if (pin == BUTTON_TOPLEFT) {
         state = ALARM_FLASH;
         state_count = 0;
     }
 
     if (state == ALARM_FLASH) {
-        display->lock(this);
+        display->lock((size_t) this);
         if (state_count % 2 == 0) flash();
         else clear();
 
         state_count ++;
         if (state_count > 4) {
             state = ALARM_NORMAL;
-            display->unlock(this);
+            display->unlock((size_t) this);
         }
     }
 
 }
 
 void Alarm::setup() {
-    timer = new MyTimer(1000);
+    timer = new MyTimer(500);
+    hour = 11;
+    minute = 11;
 }
 
 void Alarm::flash() {
-    display->setTime(hour, minute);
+    display->setTime((size_t) this, hour, minute);
 }
 
 void Alarm::clear() {
-    display->clear();
+    display->clearDisplay((size_t) this);
 }
 
 

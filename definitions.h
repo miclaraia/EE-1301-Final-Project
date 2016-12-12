@@ -15,18 +15,17 @@
 #define DOCHECKS 3
 #define PASSED 4
 
-#define TOPLEFT 101
-#define TOPRIGHT 102
-#define BOTTOMLEFT 103
+#define CLEAR       100
+#define TOPLEFT     101
+#define TOPRIGHT    102
+#define BOTTOMLEFT  103
 #define BOTTOMRIGHT 104
-#define TOP 105
-#define BOTTOM 106
-#define X 107
+#define TOP         105
+#define BOTTOM      106
+#define X           107
 
 //  Section for Alarm state definitions
 #define ALARM_NORMAL 0
-#define ALARM_FLASH_FLASH 1;
-#define ALARM_ 0;
-#define
+#define ALARM_FLASH 1
 
 #endif
