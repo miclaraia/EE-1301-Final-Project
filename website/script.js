@@ -38,7 +38,13 @@ var control = new function() {
             console.log(event);
 
             var command = $(event.target).attr("value");
-            command = "120";
+            if (command == "time") {
+                var text = $(event.target).text().split(":");
+                var time = text[0] * 60 + text[1];
+
+                command = "" + time;
+                console.log(text, time);
+            }
             console.log(command);
 
             var post = $.post(setURL, {args: command},
