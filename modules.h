@@ -75,12 +75,19 @@ class Display : public Module {
     Matrix *matrix2;
     int state = 0;
 
+    int left = 0;
+    int right = 0;
+
+    void draw(int left, int right);
+    void draw(Matrix *matrix, int which);
+
 public:
     Display();
     void setup();
     void run();
-    void draw(int left, int right);
-    void draw(Matrix *matrix, int which);
+
+    void setSimon(int state);
+    void setTime(int hour, int minute);
 };
 
 class Clock : public Module {

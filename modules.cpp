@@ -409,12 +409,13 @@ void Display::setup() {
     matrix2 = matrix;
 }
 void Display::run() {
-    draw(matrix1, state / 5);
-    draw(matrix2, state);
+    draw(left, right);
+    // draw(matrix1, state / 5);
+    // draw(matrix2, state);
 
-    state ++;
-    //if (state > 12 && state < 21) state = 21;
-    if (state > 60) state = 0;
+    // state ++;
+    // //if (state > 12 && state < 21) state = 21;
+    // if (state > 60) state = 0;
 }
 void Display::draw(int left, int right) {
     if (left > 0) {
@@ -496,6 +497,15 @@ void Display::draw(Matrix *matrix, int which) {
     matrix->writeDisplay();
 }
 
+void setSimon(int state) {
+
+}
+
+void setTime(int hour, int minute) {
+    left = hour;
+    right = minute;
+}
+
 const uint8_t* getNumericalBitmap(int num) {
     switch(num) {
         case 1:
@@ -543,9 +553,13 @@ void Clock::setup() {
 void Clock::run() {
     hour = Time.hour();
     minute = Time.minute();
+
+    display->setTime(hour, minute);
 }
 
-void Clock::setDisplay(Display *display) 
+void Clock::setDisplay(Display *display)  {
+    this->display = display;
+}
 
 
 
