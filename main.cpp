@@ -35,6 +35,7 @@ void setup() {
     simon->setDisplay(display);
 
     alarm->setInput(input);
+    simon->setInput(input);
 
     alarm->setSimon(simon);
 
