@@ -5,6 +5,7 @@ public:
     bool active = false;
     MyTimer *timer;
 
+    bool check();
     void run();
     void setup();
 };
@@ -84,6 +85,9 @@ public:
 
 class Clock : public Module {
     Display *display;
+
+    int hour;
+    int minute;
 
 public:
     Clock();

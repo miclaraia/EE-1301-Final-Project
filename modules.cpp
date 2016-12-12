@@ -82,6 +82,10 @@ T * List<T>::get(int index) {
     return &list[index];
 }
 
+bool Module::check() {
+    return active && timer->check();
+}
+
 Input::Input() {
     setup();
 }
@@ -529,12 +533,17 @@ const uint8_t* getNumericalBitmap(int num) {
 }
 
 Clock::Clock() {
-
+    setup();
 }
 
-void Clock::setup()
+void Clock::setup() {
+    timer = new MyTimer(10000)
+}
 
-void Clock::run() 
+void Clock::run() {
+    hour = Time.hour();
+    minute = Time.minute();
+}
 
 void Clock::setDisplay(Display *display) 
 
