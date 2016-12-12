@@ -391,7 +391,7 @@ Display::Display() {
 void Display::setup() {
     active = true;
     state = 0;
-    timer = new MyTimer(1000);
+    timer = new MyTimer(500);
 
     Matrix *matrix;
     matrix = new Adafruit_8x8matrix();
@@ -405,18 +405,11 @@ void Display::setup() {
     matrix2 = matrix;
 }
 void Display::run() {
-    if (state == 0) {
-        Serial.print("drawing top\n\r");
-        draw(matrix1, TOPLEFT);
-
-    } else if (state == 1) {
-        Serial.print("drawing bottom\n\r");
-        draw(matrix1, TOPRIGHT);
-
-    }
+    draw(matrix1, state);
 
     state ++;
-    if (state >= 2) state = 0;
+    if (state > 12 && state < 21) state = 21;
+    if (state > 27) state = 0;
 }
 void Display::draw(int left, int right) {
     if (left > 0) {
@@ -424,19 +417,43 @@ void Display::draw(int left, int right) {
     }
 
     if (right > 0) {
-
+        draw(matrix2, right);
     }
 
 }
 
 void Display::draw(Matrix *matrix, int which) {
     matrix->clear();
-    if (which < 20)
+
+    if (which == 1)
+        matrix->drawBitmap(3,0, bmp_1, 4,8, LED_ON);
+    if (which == 2)
+        matrix->drawBitmap(3,0, bmp_2, 4,8, LED_ON);
+    if (which == 3)
+        matrix->drawBitmap(3,0, bmp_3, 4,8, LED_ON);
+    if (which == 4)
+        matrix->drawBitmap(3,0, bmp_4, 4,8, LED_ON);
+    else if (which < 20) {
+        matrix->setTextSize(1);
+        matrix->setTextWrap(false);
+        matrix->setTextColor(LED_ON);
+        matrix->setCursor(0,0);
         matrix->print(which);
+    }
     else if (which == TOPLEFT) 
         matrix->fillRect(0,0,4,4, LED_ON);
     else if (which == TOPRIGHT)
         matrix->fillRect(4,0,4,4, LED_ON);
+    else if (which == BOTTOMLEFT) 
+        matrix->fillRect(0,4,4,4, LED_ON);
+    else if (which == BOTTOMRIGHT)
+        matrix->fillRect(4,4,4,4, LED_ON);
+    else if (which == TOP)
+        matrix->fillRect(0,0,8,4, LED_ON);
+    else if (which == BOTTOM)
+        matrix->fillRect(0,4,8,4, LED_ON);
+    else if (which == X)
+        matrix->drawBitmap(0,0, bmp_x, 8,8, LED_ON);
 
     matrix->writeDisplay();
 }
