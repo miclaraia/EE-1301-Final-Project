@@ -83,6 +83,10 @@ T * List<T>::get(int index) {
 }
 
 Input::Input() {
+    setup();
+}
+
+void Input::setup() {
     buttons = new List<Button>(10);
     last_pressed = new List<int>(LAST_PRESSED_LENGTH);
 
@@ -224,7 +228,7 @@ Simon::Simon(){
     //     B11111111 };
         
 
-    matrix =  new Adafruit_BicolorMatrix();
+    matrix =  new Adafruit_8x8matrix();
     matrix->setTextWrap(false);
     matrix->setCursor(0,0);
     matrix->begin(0x70);
@@ -356,9 +360,6 @@ if(active){
     if(state == PASSED){
         active = false;
     }
-
-
-
 }
 
 
@@ -409,26 +410,34 @@ void Display::setup() {
     state = 0;
     timer = new MyTimer(500);
 
-    Adafruit_BicolorMatrix *matrix;
-    matrix = new Adafruit_BicolorMatrix();
+    Matrix *matrix;
+    matrix = new Adafruit_8x8matrix();
     matrix->begin(0x70);
     matrix1 = matrix;
 
-    matrix = new Adafruit_BicolorMatrix();
+    matrix = new Adafruit_8x8matrix();
     matrix->begin(0x71);
     matrix2 = matrix;
 }
 void Display::run() {
     if (state == 0) {
         Serial.print("drawing top\n\r");
+        matrix1->clear();
+        matrix1->drawRect(0,0, 8,8, LED_ON);
+        matrix1->fillRect(2,2, 4,4, LED_ON);
+        matrix1->writeDisplay();
+
         matrix2->clear();
         matrix2->drawRect(0,0, 8,8, LED_ON);
-        matrix2->fillRect(2,2, 4,4, LED_ON);
         matrix2->writeDisplay();
     } else if (state == 1) {
         Serial.print("drawing bottom\n\r");
         matrix1->clear();
         matrix1->drawBitmap(0, 0, bmp_bottom, 8, 8, LED_ON);
+        matrix1->writeDisplay();
+
+        matrix2->clear();
+        matrix2->fillRect(0,0,8,8,LED_OFF);
         matrix1->writeDisplay();
     }
 

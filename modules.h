@@ -1,4 +1,4 @@
-
+#include "adafruit.h"
 
 class Module {
 public:
@@ -19,6 +19,7 @@ public:
 //public:
     Input();
     void run();
+    void setup();
 
     void addButton(Button button);
     void clearPresses();
@@ -31,7 +32,7 @@ class Simon : public Module {
     int check[R];
     int rn =1;
     int state = 1;
-    Adafruit_BicolorMatrix *matrix;
+    Matrix *matrix;
      //bool rundisp = true;
     // bool Passed = true;
   void setup();
@@ -69,8 +70,8 @@ class Speaker : public Module {
 };
 
 class Display : public Module {
-    Adafruit_BicolorMatrix *matrix1;
-    Adafruit_BicolorMatrix *matrix2;
+    Matrix *matrix1;
+    Matrix *matrix2;
     int state = 0;
 
 public:

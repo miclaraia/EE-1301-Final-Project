@@ -9,6 +9,7 @@ Input *input;
 HeartBeat *hb;
 Display *display;
 
+
 void setup() {
     Serial.begin(9600);
 
@@ -19,6 +20,8 @@ void setup() {
     input->active = true;
 
     pinMode(D7, OUTPUT);
+
+
 }
 
 void loop() {
