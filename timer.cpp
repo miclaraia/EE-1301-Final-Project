@@ -2,6 +2,7 @@
 
 MyTimer::MyTimer(int duration) {
     this->duration = duration;
+    reset();
 }
 
 bool MyTimer::check() {
