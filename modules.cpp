@@ -1,7 +1,7 @@
 #include "adafruit-led-backpack.h"
 #include "objects.h"
 #include "modules.h"
-//#include "debug.h"
+#include "debug.h"
 static const uint8_t
   topleft_bmp[] =
   { B11100001,
@@ -129,7 +129,7 @@ void Input::addButton(Button button) {
 void Input::addPress(Button *button) {
     //debugButton(button->pin);
     if (button->pin == BUTTON_SNOOZE) {
-        //debugArray(last_pressed->list, last_pressed->count);
+        debugArray(last_pressed->list, last_pressed->count);
         last_pressed->clear();
     }
 

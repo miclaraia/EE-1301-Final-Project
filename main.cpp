@@ -8,6 +8,7 @@ Input *input;
 HeartBeat *hb;
 Display *display;
 Clock *myClock;
+Alarm *alarm;
 
 
 void setup() {
@@ -17,10 +18,16 @@ void setup() {
     hb = new HeartBeat();
     display = new Display();
     myClock = new Clock();
+    alarm = new Alarm();
 
     input->active = true;
     myClock->active = true;
+    alarm->active = true;
+
     myClock->setDisplay(display);
+    alarm->setDisplay(display);
+
+    alarm->setInput(input);
 
     pinMode(D7, OUTPUT);
 
@@ -28,7 +35,7 @@ void setup() {
 }
 
 void loop() {
-    Serial.print("running");
+    //Serial.print("running");
     //Serial.print(s.c_str());
     if (input->check()) {
         input->run();
@@ -44,6 +51,10 @@ void loop() {
 
     if (myClock->check()) {
         myClock->run();
+    }
+
+    if (alarm->check()) {
+        alarm->run();
     }
 
     delay(100);
