@@ -22,7 +22,7 @@ void setup() {
     display = new Display();
     myClock = new Clock();
     alarm = new Alarm();
-    Simon = new Simon();
+    simon = new Simon();
 
     input->active = true;
     myClock->active = true;

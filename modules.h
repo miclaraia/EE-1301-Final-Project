@@ -28,38 +28,6 @@ public:
 
 };
 
-class Simon : public Module {
-    int disp[R+1];
-    int checks[R];
-    int rn =1;
-    int state = 1;
-    //Matrix *matrix;
-     //bool rundisp = true;
-    // bool Passed = true;
-  void setup();
-
-  Input *buttons;
-
-public : 
-void setDisplay(Display *display);  
-void display();
-void checking();
-void fail();
-void doButtons();
-Simon();
-void setinput(Input *buttoninputs);
-static const uint8_t
-  topleft_bmp[],
-  topright_bmp[], 
-  botleft_bmp[], 
-  botright_bmp[],
-  X_bmp[],
-  clean_bmp[];
-    
-    void run();
-
-};
-
 class HeartBeat : public Module {
     bool state = true;
 public:
@@ -135,6 +103,38 @@ public:
     void setAlarm(int minutes);
     void setAlarm(int hour, int minutes);
     int getAlarm();
+};
+
+class Simon : public Module {
+    int disp[R+1];
+    int checks[R];
+    int rn =1;
+    int state = 1;
+    //Matrix *matrix;
+     //bool rundisp = true;
+    // bool Passed = true;
+  void setup();
+
+  Input *buttons;
+
+public : 
+void setDisplay(Display *display);  
+void display();
+void checking();
+void fail();
+void doButtons();
+Simon();
+void setinput(Input *buttoninputs);
+static const uint8_t
+  topleft_bmp[],
+  topright_bmp[], 
+  botleft_bmp[], 
+  botright_bmp[],
+  X_bmp[],
+  clean_bmp[];
+    
+    void run();
+
 };
 
 const uint8_t* getNumericalBitmap(int num);
