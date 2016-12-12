@@ -1,7 +1,6 @@
 #include "definitions.h"
 #include "includes.h"
 
-Module *simon;
 Module *speaker;
 Input *input;
 
@@ -9,6 +8,7 @@ HeartBeat *hb;
 Display *display;
 Clock *myClock;
 Alarm *alarm;
+Simon *simon;
 
 int setAlarm(String minutes);
 int getAlarm(String input);
@@ -22,6 +22,7 @@ void setup() {
     display = new Display();
     myClock = new Clock();
     alarm = new Alarm();
+    Simon = new Simon();
 
     input->active = true;
     myClock->active = true;
@@ -60,6 +61,10 @@ void loop() {
 
     if (alarm->check()) {
         alarm->run();
+    }
+
+    if (simon->check()) {
+        simon->run();
     }
 
     delay(100);
