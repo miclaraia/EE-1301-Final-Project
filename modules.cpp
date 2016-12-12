@@ -482,8 +482,10 @@ void Display::clearDisplay(int lock_address) {
 }
 
 void Display::lock(int address) {
-    lock_ = true;
-    key_ = address;
+    if (!lock) {
+        lock_ = true;
+        key_ = address;
+    }
 }
 
 void Display::unlock(int address) {
