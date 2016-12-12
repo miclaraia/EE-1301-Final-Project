@@ -139,6 +139,8 @@ public:
     void run();
     void setup();
 
+    void displayAlarm();
+
     void setAlarm(int minutes);
     void setAlarm(int hour, int minutes);
     int getAlarm();

@@ -365,11 +365,11 @@ void Display::run() {
     // if (state > 60) state = 0;
 }
 void Display::draw(int left, int right) {
-    if (left > 0) {
+    if (left >= 0) {
         draw(matrix1, left);
     }
 
-    if (right > 0) {
+    if (right >= 0) {
         draw(matrix2, right);
     }
 
@@ -385,8 +385,7 @@ void Display::draw(Matrix *matrix, int which) {
         const uint8_t *left_bitmap = getNumericalBitmap(left);
         const uint8_t *right_bitmap = getNumericalBitmap(right);
 
-        if (which > 10)
-            matrix->drawBitmap(0,0, left_bitmap, 4,8, LED_ON);
+        matrix->drawBitmap(0,0, left_bitmap, 4,8, LED_ON);
         matrix->drawBitmap(4,0, right_bitmap, 4,8, LED_ON);
     }
     // if (which == 1)
@@ -577,29 +576,38 @@ void Alarm::setSimon(Simon *simon) {
 }
 
 void Alarm::run() {
-    List<int> *press = input->last_pressed;
-    int pin = *(press->get(press->count - 1));
-    if (pin == BUTTON_TOPLEFT) {
-        input->clearPresses();
-        state = ALARM_FLASH;
-        state_count = 0;
-    } else if (pin == BUTTON_SNOOZE) {
-        input->clearPresses();
-        simon->active = true;
-        simon->timer->reset();
-    }
+    if (!simon->active) {
+        List<int> *press = input->last_pressed;
+        int pin = *(press->get(press->count - 1));
+        if (pin == BUTTON_TOPLEFT) {
+            input->clearPresses();
+            displayAlarm();
+        } 
 
-    if (state == ALARM_FLASH) {
-        display->lock(id);
-        if (state_count % 2 == 0) flash();
-        else clear();
+        else if (pin == BUTTON_SNOOZE) {
+            input->clearPresses();
+            simon->active = true;
+            simon->timer->reset();
+        }
 
-        state_count ++;
-        if (state_count > 4) {
-            state = ALARM_NORMAL;
-            display->unlock(id);
+        if (state == ALARM_FLASH) {
+            display->lock(id);
+            if (state_count % 2 == 0) flash();
+            else clear();
+
+            state_count ++;
+            if (state_count > 4) {
+                state = ALARM_NORMAL;
+                display->unlock(id);
+            }
         }
     }
+
+}
+
+void Alarm::displayAlarm() {
+    state = ALARM_FLASH;
+    state_count = 0;
 
 }
 

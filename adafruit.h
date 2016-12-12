@@ -44,14 +44,14 @@ static const uint8_t PROGMEM bmp_2[] =
 
 static const uint8_t PROGMEM bmp_3[] =
 {
-    B01110000,
-    B00010000,
-    B00010000,
-    B01110000,
-    B00010000,
-    B00010000,
-    B00010000,
-    B01110000
+    B11100000,
+    B00100000,
+    B00100000,
+    B11100000,
+    B00100000,
+    B00100000,
+    B00100000,
+    B11100000
 };
 
 static const uint8_t PROGMEM bmp_4[] =
@@ -104,14 +104,14 @@ static const uint8_t PROGMEM bmp_7[] =
 
 static const uint8_t PROGMEM bmp_8[] =
 {
-    B11110000,
-    B10010000,
-    B10010000,
-    B11110000,
-    B11110000,
-    B10010000,
-    B10010000,
-    B11110000
+    B11100000,
+    B10100000,
+    B10100000,
+    B11100000,
+    B11100000,
+    B10100000,
+    B10100000,
+    B11100000
 };
 
 static const uint8_t PROGMEM bmp_9[] =
@@ -128,14 +128,14 @@ static const uint8_t PROGMEM bmp_9[] =
 
 static const uint8_t PROGMEM bmp_0[] =
 {
-    B11110000,
-    B10010000,
-    B10010000,
-    B10010000,
-    B10010000,
-    B10010000,
-    B10010000,
-    B11110000
+    B11100000,
+    B10100000,
+    B10100000,
+    B10100000,
+    B10100000,
+    B10100000,
+    B10100000,
+    B11100000
 };
 
 static const uint8_t PROGMEM bmp_empty[] =
