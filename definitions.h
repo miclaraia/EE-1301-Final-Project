@@ -23,7 +23,10 @@
 #define TOP         105
 #define BOTTOM      106
 #define X           107
-
+#define SIMONTOPLEFT 1
+#define SIMONTOPRIGHT 2
+#define SIMONBOTTOMLEFT 3
+#define SIMONBOTTOMRIGHT 4
 //  Section for Alarm state definitions
 #define ALARM_NORMAL 0
 #define ALARM_FLASH 1

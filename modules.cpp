@@ -232,15 +232,16 @@ Simon::Simon(){
     //     B11111111 };
         
 
-    matrix =  new Adafruit_8x8matrix();
-    matrix->setTextWrap(false);
-    matrix->setCursor(0,0);
-    matrix->begin(0x70);
+    // matrix =  new Adafruit_8x8matrix();
+    // matrix->setTextWrap(false);
+    // matrix->setCursor(0,0);
+    // matrix->begin(0x70);
     setup();
 }
 void Simon::setinput(Input *buttoninputs){
     buttons = buttoninputs;
-
+void Simon::setDisplay(Display *display)  {
+    this->display = display;
 }
 void Simon::setup(){
     for(int j = 0; j< R; j++){
@@ -256,49 +257,29 @@ void Simon::display(){
        
         //topleft
         if (disp[z] ==1){
-          matrix->clear();
-          matrix->drawBitmap(0, 0, topleft_bmp, 8, 8, LED_ON);
-          matrix->writeDisplay();
+            display->setSimon((size_t)this,TOPLEFT);
           timer->reset(500);
-          //matrix->writeDisplay();
-        
-          //matrix->clear();
-          continue;
+         continue;
         }
         
         //topright
         if(disp[z] == 2){
-          matrix->clear();
-          matrix->drawBitmap(0, 0, topright_bmp, 8, 8, LED_ON);
-          matrix->writeDisplay();
+          display->setSimon((size_t)this,TOPRIGHT);
           timer->reset(500);
-          //matrix->clear();
-          //matrix->writeDisplay();
-          
           continue;
         }
         
         //botleft
         if(disp[z] == 3){
-          matrix->clear();
-          matrix->drawBitmap(0, 0, botleft_bmp, 8, 8, LED_ON);
-          matrix->writeDisplay();
+         display->setSimon((size_t)this,BOTTOMLEFT);
           timer->reset(500);
-          //matrix->clear();
-          //matrix->writeDisplay();
-        
           continue;
         }
         
         //botright
          if (disp[z] == 4) {
-          matrix->clear();
-          matrix->drawBitmap(0, 0, botright_bmp, 8, 8, LED_ON);
-          matrix->writeDisplay();
+         display->setSimon((size_t)this,BOTTOMRIGHT);
           timer->reset(500);
-          //matrix->writeDisplay();
-          
-          //matrix->clear();
           continue;
         } 
         
@@ -312,20 +293,20 @@ void Simon::doButtons() {
     }
 
 }
-void Simon::checks(){
+void Simon::checking(){
     for(int i =0; i<rn; i++){
         if(buttons->last_pressed->list[i] == BUTTON_TOPLEFT)
-            check[i] = TOPLEFT;
+            checks[i] = SIMONTOPLEFT;
         else if(buttons->last_pressed->list[i] == BUTTON_TOPRIGHT)
-            check[i] = TOPRIGHT;
+            checks[i] = SIMONTOPRIGHT;
         else if(buttons->last_pressed->list[i] == BUTTON_BOTTOMLEFT)
-            check[i] = BOTTOMLEFT;
+            checks[i] = SIMONBOTTOMLEFT;
         else if(buttons->last_pressed->list[i] == BUTTON_BOTTOMRIGHT)
-            check[i] = BOTTOMRIGHT;
+            checks[i] = SIMONBOTTOMRIGHT;
         else state = 1;
     }
     for (int i =0; i<rn; i++)
-        if(disp[i] != check[i])
+        if(disp[i] != checks[i])
             fail();
 
 
@@ -334,14 +315,10 @@ void Simon::checks(){
 void Simon::fail(){
  
         for(int i=0; i<2; i++){
-          matrix->clear();
-          matrix->drawBitmap(0, 0, X_bmp, 8, 8, LED_ON);
-          matrix->writeDisplay();
-          delay(500);
-          matrix->drawBitmap(0, 0, clean_bmp, 8, 8, LED_OFF);
-          matrix->writeDisplay();
-          delay(500);
-          
+          display->setSimon((size_t)this,TOPRIGHT);
+          timer->reset(500);
+          display->clearDisplay((size_t)this);
+          timer->reset(500);
           }
            
            rn = 1;
@@ -352,14 +329,16 @@ void Simon::fail(){
 
 void Simon::run() {
 if(active){
+
     if(state == DODISPLAY){
+    display->lock((size_t) this);
     display();
     state++;}
     if(state == DOBUTTONS){
     doButtons();
     }
     if(state == DOCHECKS){
-    checks();
+    checking();
     }
     if(state == PASSED){
         active = false;

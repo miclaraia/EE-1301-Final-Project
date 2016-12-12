@@ -33,7 +33,7 @@ class Simon : public Module {
     int checks[R];
     int rn =1;
     int state = 1;
-    Matrix *matrix;
+    //Matrix *matrix;
      //bool rundisp = true;
     // bool Passed = true;
   void setup();
@@ -41,6 +41,7 @@ class Simon : public Module {
   Input *buttons;
 
 public : 
+void setDisplay(Display *display);  
 void display();
 void checking();
 void fail();
