@@ -479,7 +479,24 @@ void Display::draw(Matrix *matrix, int which) {
 }
 
 void Display::setSimon(size_t lock_address, int state) {
-
+    if (! isLocked(lock_address)) {
+        if (state == TOPLEFT) {
+            left = TOPLEFT;
+            right = CLEAR;
+        } else if (state == TOPRIGHT) {
+            left = CLEAR;
+            right = TOPRIGHT;
+        } else if (state == BOTTOMLEFT) {
+            left = BOTTOMLEFT;
+            right = CLEAR;
+        } else if (state == BOTTOMRIGHT) {
+            left = CLEAR;
+            right = BOTTOMRIGHT;
+        } else if (state == X) {
+            left = X;
+            right = X;
+        }
+    }
 }
 
 void Display::setTime(size_t lock_address, int hour, int minute) {
