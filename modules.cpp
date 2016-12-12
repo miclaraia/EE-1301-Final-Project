@@ -575,7 +575,7 @@ Clock::Clock() {
 }
 
 void Clock::setup() {
-    timer = new MyTimer(10000);
+    timer = new MyTimer(1000);
 }
 
 void Clock::run() {
