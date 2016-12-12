@@ -497,11 +497,11 @@ void Display::draw(Matrix *matrix, int which) {
     matrix->writeDisplay();
 }
 
-void setSimon(int state) {
+void Display::setSimon(int state) {
 
 }
 
-void setTime(int hour, int minute) {
+void Display::setTime(int hour, int minute) {
     left = hour;
     right = minute;
 }
@@ -547,7 +547,7 @@ Clock::Clock() {
 }
 
 void Clock::setup() {
-    timer = new MyTimer(10000)
+    timer = new MyTimer(10000);
 }
 
 void Clock::run() {

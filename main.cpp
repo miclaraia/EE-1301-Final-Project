@@ -1,13 +1,13 @@
 #include "definitions.h"
 #include "includes.h"
 
-Module *myClock;
 Module *simon;
 Module *speaker;
 Input *input;
 
 HeartBeat *hb;
 Display *display;
+Clock *myClock;
 
 
 void setup() {
@@ -16,8 +16,11 @@ void setup() {
     input = new Input();
     hb = new HeartBeat();
     display = new Display();
+    myClock = new Clock();
 
     input->active = true;
+    myClock->active = true;
+    myClock->setDisplay(display);
 
     pinMode(D7, OUTPUT);
 
@@ -27,16 +30,20 @@ void setup() {
 void loop() {
     Serial.print("running");
     //Serial.print(s.c_str());
-    if (input->timer->check()) {
+    if (input->check()) {
         input->run();
     }
 
-    if (display->timer->check()) {
+    if (display->check()) {
         display->run();
     }
 
-    if (hb->timer->check()) {
+    if (hb->check()) {
         hb->run();
+    }
+
+    if (myClock->check()) {
+        myClock->run();
     }
 
     delay(100);

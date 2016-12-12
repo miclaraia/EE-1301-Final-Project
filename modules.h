@@ -98,7 +98,9 @@ class Clock : public Module {
 
 public:
     Clock();
-    setDisplay(Display *display);
+    void run();
+    void setup();
+    void setDisplay(Display *display);
 };
 
 const uint8_t* getNumericalBitmap(int num);
