@@ -183,7 +183,7 @@ Simon::Simon(){
     setid();
     setup();
 }
-void Simon::setinput(Input *buttoninputs){
+void Simon::setInput(Input *buttoninputs){
     buttons = buttoninputs;
 }
 void Simon::setDisplay(Display *display){
@@ -205,6 +205,8 @@ void Simon::simondisplay(){
         if (disp[z] ==1){
             display->setSimon(id,TOPLEFT);
           timer->reset(500);
+          //display->clearDisplay(id);
+          //timer->reset(500);
          continue;
         }
         
@@ -212,6 +214,8 @@ void Simon::simondisplay(){
         if(disp[z] == 2){
           display->setSimon(id,TOPRIGHT);
           timer->reset(500);
+         // display->clearDisplay(id);
+          //timer->reset(500);
           continue;
         }
         
@@ -219,6 +223,8 @@ void Simon::simondisplay(){
         if(disp[z] == 3){
          display->setSimon(id,BOTTOMLEFT);
           timer->reset(500);
+          //display->clearDisplay(id);
+          //timer->reset(500);
           continue;
         }
         
@@ -226,6 +232,8 @@ void Simon::simondisplay(){
          if (disp[z] == 4) {
          display->setSimon(id,BOTTOMRIGHT);
           timer->reset(500);
+         // display->clearDisplay(id);
+          //timer->reset(500);
           continue;
         } 
         
@@ -251,24 +259,35 @@ void Simon::checking(){
             checks[i] = SIMONBOTTOMRIGHT;
         else state = 1;
     }
+    
     for (int i =0; i<rn; i++)
         if(disp[i] != checks[i])
             fail();
+        if(rn == R){
+            state = PASSED;
+        }
+        if(state != 1){
+            rn++;
+            state = DODISPLAY;
+        }
+       
 
 
-    state++;
+
+
+    
     }
 void Simon::fail(){
  
         for(int i=0; i<2; i++){
-          display->setSimon(id,TOPRIGHT);
+          display->setSimon(id,X);
           timer->reset(500);
           display->clearDisplay(id);
           timer->reset(500);
           }
            
            rn = 1;
-           state =1;
+           state = DODISPLAY;
            }
 
 

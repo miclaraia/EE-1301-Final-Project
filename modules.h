@@ -104,7 +104,7 @@ void checking();
 void fail();
 void doButtons();
 
-void setinput(Input *buttoninputs);
+void setInput(Input *buttoninputs);
 static const uint8_t
   topleft_bmp[],
   topright_bmp[], 
