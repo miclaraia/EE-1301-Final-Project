@@ -87,8 +87,8 @@ bool Module::check() {
 }
 
 void Module::setid() {
-    this->id = Module::counter;
-    Module::counter++;
+    this->id = counter;
+    counter++;
 }
 
 Input::Input() {

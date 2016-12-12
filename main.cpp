@@ -32,6 +32,7 @@ void setup() {
 
     myClock->setDisplay(display);
     alarm->setDisplay(display);
+    simon->setDisplay(display);
 
     alarm->setInput(input);
 
