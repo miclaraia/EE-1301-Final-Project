@@ -1,7 +1,6 @@
 #include "adafruit-led-backpack.h"
 #include "objects.h"
 #include "modules.h"
-#include "simon.h"
 //#include "debug.h"
 static const uint8_t
   topleft_bmp[] =
@@ -58,6 +57,7 @@ static const uint8_t
     B11111111,
     B11111111,
     B11111111 };
+
 template<class T>
 List<T>::List(int length) {
     this->max = length;
@@ -164,170 +164,170 @@ void Input::run() {
 
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Jaydon's shit
-Simon :: Simon(){
-timer = new MyTimer(100);
+Simon::Simon(){
+    timer = new MyTimer(100);
 
-// static const uint8_t
-//   topleft_bmp[] =
-//   { B11100001,
-//     B11100001,
-//     B11100001,
-//     B11100001,
-//     B00000000,
-//     B00000000,
-//     B00000000,
-//     B00000000 },
-//   topright_bmp[] =
-//   { B00011110,
-//     B00011110,
-//     B00011110,
-//     B00011110,
-//     B00000000,
-//     B00000000,
-//     B00000000,
-//     B00000000 },
-//   botleft_bmp[] =
-//   { B00000000,
-//     B00000000,
-//     B00000000,
-//     B00000000,
-//     B11100001,
-//     B11100001,
-//     B11100001,
-//     B11100001 },
-//  botright_bmp[] =
-//   { B00000000,
-//     B00000000,
-//     B00000000,
-//     B00000000,
-//     B00011110,
-//     B00011110,
-//     B00011110,
-//     B00011110 },
-//  X_bmp[] =
-//   { B00000011,
-//     B10000100,
-//     B01001000,
-//     B00110000,
-//     B00110000,
-//     B01001000,
-//     B10000100,
-//     B00000011 },
-//  clean_bmp[] =
-//   { B11111111,
-//     B11111111,
-//     B11111111,
-//     B11111111,
-//     B11111111,
-//     B11111111,
-//     B11111111,
-//     B11111111 };
-    
+    // static const uint8_t
+    //   topleft_bmp[] =
+    //   { B11100001,
+    //     B11100001,
+    //     B11100001,
+    //     B11100001,
+    //     B00000000,
+    //     B00000000,
+    //     B00000000,
+    //     B00000000 },
+    //   topright_bmp[] =
+    //   { B00011110,
+    //     B00011110,
+    //     B00011110,
+    //     B00011110,
+    //     B00000000,
+    //     B00000000,
+    //     B00000000,
+    //     B00000000 },
+    //   botleft_bmp[] =
+    //   { B00000000,
+    //     B00000000,
+    //     B00000000,
+    //     B00000000,
+    //     B11100001,
+    //     B11100001,
+    //     B11100001,
+    //     B11100001 },
+    //  botright_bmp[] =
+    //   { B00000000,
+    //     B00000000,
+    //     B00000000,
+    //     B00000000,
+    //     B00011110,
+    //     B00011110,
+    //     B00011110,
+    //     B00011110 },
+    //  X_bmp[] =
+    //   { B00000011,
+    //     B10000100,
+    //     B01001000,
+    //     B00110000,
+    //     B00110000,
+    //     B01001000,
+    //     B10000100,
+    //     B00000011 },
+    //  clean_bmp[] =
+    //   { B11111111,
+    //     B11111111,
+    //     B11111111,
+    //     B11111111,
+    //     B11111111,
+    //     B11111111,
+    //     B11111111,
+    //     B11111111 };
+        
 
-matrix =  new Adafruit_BicolorMatrix();
-matrix.setTextWrap(false);
-matrix.setCursor(0,0);
-matrix.begin(0x70);
-setup();
-int state = 1;
+    matrix =  new Adafruit_BicolorMatrix();
+    matrix->setTextWrap(false);
+    matrix->setCursor(0,0);
+    matrix->begin(0x70);
+    setup();
+    int state = 1;
 
 
-
-}
-void Simon :: setinput(Input *buttoninputs){
-	buttons = buttoninputs;
 
 }
-void Simon :: setup(){
-for(int j = 0; j< R; j++){
+void Simon::setinput(Input *buttoninputs){
+    buttons = buttoninputs;
+
+}
+void Simon::setup(){
+    for(int j = 0; j< R; j++){
            disp[j] = random(3) + 1;
            //disp[j] = 1;
         }
         disp[R] =0;
 
 }
-void Simon :: disp(){
-for(int z = 0; z < rn; z++){
-     
-   
-    //topleft
-    if (disp[z] ==1){
-      matrix.clear();
-      matrix.drawBitmap(0, 0, topleft_bmp, 8, 8, LED_ON);
-      matrix.writeDisplay();
-      timer->500;
-      //matrix.writeDisplay();
-    
-      //matrix.clear();
-      continue;
+void Simon::disp(){
+    for(int z = 0; z < rn; z++){
+         
+       
+        //topleft
+        if (disp[z] ==1){
+          matrix.clear();
+          matrix.drawBitmap(0, 0, topleft_bmp, 8, 8, LED_ON);
+          matrix.writeDisplay();
+          timer->500;
+          //matrix.writeDisplay();
+        
+          //matrix.clear();
+          continue;
+        }
+        
+        //topright
+        if(disp[z] == 2){
+          matrix.clear();
+          matrix.drawBitmap(0, 0, topright_bmp, 8, 8, LED_ON);
+          matrix.writeDisplay();
+          timer->500;
+          //matrix.clear();
+          //matrix.writeDisplay();
+          
+          continue;
+        }
+        
+        //botleft
+        if(disp[z] == 3){
+          matrix.clear();
+          matrix.drawBitmap(0, 0, botleft_bmp, 8, 8, LED_ON);
+          matrix.writeDisplay();
+          timer->500;
+          //matrix.clear();
+          //matrix.writeDisplay();
+        
+          continue;
+        }
+        
+        //botright
+         if (disp[z] == 4) {
+          matrix.clear();
+          matrix.drawBitmap(0, 0, botright_bmp, 8, 8, LED_ON);
+          matrix.writeDisplay();
+          timer->500;
+          //matrix.writeDisplay();
+          
+          //matrix.clear();
+          continue;
+        } 
+        
+
     }
-    
-    //topright
-    if(disp[z] == 2){
-      matrix.clear();
-      matrix.drawBitmap(0, 0, topright_bmp, 8, 8, LED_ON);
-      matrix.writeDisplay();
-      timer->500;
-      //matrix.clear();
-      //matrix.writeDisplay();
-      
-      continue;
+}
+void Simon::buttons() {
+    if (rn == buttons->last_pressed->count){
+        state++;
+        //buttons->last_pressed->list[]
     }
-    
-    //botleft
-    if(disp[z] == 3){
-      matrix.clear();
-      matrix.drawBitmap(0, 0, botleft_bmp, 8, 8, LED_ON);
-      matrix.writeDisplay();
-      timer->500;
-      //matrix.clear();
-      //matrix.writeDisplay();
-    
-      continue;
+
+}
+void Simon::checks(){
+    for(int i =0; i<rn; i++){
+        if(buttons->last_pressed->list[i] == BUTTON_TOPLEFT)
+            check[i] = TOPLEFT;
+        else if(buttons->last_pressed->list[i] == BUTTON_TOPRIGHT)
+            check[i] = TOPRIGHT;
+        else if(buttons->last_pressed->list[i] == BUTTON_BOTTOMLEFT)
+            check[i] = BOTTOMLEFT;
+        else if(buttons->last_pressed->list[i] == BUTTON_BOTTOMRIGHT)
+            check[i] = BOTTOMRIGHT;
+        else if state = 1;
     }
-    
-    //botright
-     if (disp[z] == 4) {
-      matrix.clear();
-      matrix.drawBitmap(0, 0, botright_bmp, 8, 8, LED_ON);
-      matrix.writeDisplay();
-      timer->500;
-      //matrix.writeDisplay();
-      
-      //matrix.clear();
-      continue;
-    } 
-    
-
-}
-}
-void Simon :: buttons() {
-	if (rn == buttons->last_pressed->count){
-		state++;
-		//buttons->last_pressed->list[]
-	}
-
-}
-void Simon :: checks(){
-for(int i =0; i<rn; i++){
-	if(buttons->last_pressed->list[i] == BUTTON_TOPLEFT)
-		check[i] = TOPLEFT;
-	else if(buttons->last_pressed->list[i] == BUTTON_TOPRIGHT)
-		check[i] = TOPRIGHT;
-	else if(buttons->last_pressed->list[i] == BUTTON_BOTTOMLEFT)
-		check[i] = BOTTOMLEFT;
-	else if(buttons->last_pressed->list[i] == BUTTON_BOTTOMRIGHT)
-		check[i] = BOTTOMRIGHT;
-	else if state = 1;
-}
-for (int i =0; i<rn; i++)
-	if(disp[i] != check[i])
-		fail();
+    for (int i =0; i<rn; i++)
+        if(disp[i] != check[i])
+            fail();
 
 
-state++;
-}
-void Simon :: fail(){
+    state++;
+    }
+void Simon::fail(){
  
         for(int i=0; i<2; i++){
           matrix.clear();
@@ -346,20 +346,20 @@ void Simon :: fail(){
 
 
 
-void Simon :: run() {
+void Simon::run() {
 if(active){
-	if(state == DODISPLAY){
-	disp();
-	state++;}
-	if(state == DOBUTTONS){
-	buttons();
-	}
-	if(state == DOCHECKS){
-	checks();
-	}
-	if(state == PASSED){
-		active = false;
-	}
+    if(state == DODISPLAY){
+    disp();
+    state++;}
+    if(state == DOBUTTONS){
+    buttons();
+    }
+    if(state == DOCHECKS){
+    checks();
+    }
+    if(state == PASSED){
+        active = false;
+    }
 
 
 
