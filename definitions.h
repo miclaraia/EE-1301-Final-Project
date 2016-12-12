@@ -1,3 +1,6 @@
+#ifndef DEFINITIONS_H_
+#define DEFINITIONS_H_
+
 #define R 5 // r for rounds
 #define BUTTON_TOPLEFT D6
 #define BUTTON_TOPRIGHT D4
@@ -15,3 +18,5 @@
 #define DOBUTTONS 2
 #define DOCHECKS 3
 #define PASSED 4
+
+#endif

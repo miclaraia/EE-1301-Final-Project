@@ -1,3 +1,6 @@
+#ifdef MODULE_H_
+#define MODULE_H_
+
 class Module {
 public:
     bool active = false;
@@ -47,3 +50,5 @@ public:
     void draw(int left, int right);
     void draw(char *str);
 };
+
+#endif
