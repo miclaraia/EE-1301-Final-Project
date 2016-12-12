@@ -551,7 +551,9 @@ void Clock::setup() {
 }
 
 void Clock::run() {
-    hour = Time.hour();
+    // Time.hour() UTC, so in the UK
+    // Add 6 hours for time zone difference
+    hour = Time.hour() + 6;
     minute = Time.minute();
 
     display->setTime(hour, minute);
