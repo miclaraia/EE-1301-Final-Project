@@ -80,33 +80,6 @@ public:
     void setDisplay(Display *display);
 };
 
-class Alarm : public Module {
-    Display *display;
-    Input *input;
-    Simon *simon;
-
-    int hour;
-    int minute;
-
-    int state = ALARM_NORMAL;
-    int state_count = 0;
-
-    void flash();
-    void clear();
-
-public:
-    Alarm();
-    void setDisplay(Display *display);
-    void setInput(Input *input);
-    void setSimon(Simon *simon);
-    void run();
-    void setup();
-
-    void setAlarm(int minutes);
-    void setAlarm(int hour, int minutes);
-    int getAlarm();
-};
-
 class Simon : public Module {
     int disp[R+1];
     int checks[R];
@@ -138,6 +111,33 @@ static const uint8_t
     
     void run();
 
+};
+
+class Alarm : public Module {
+    Display *display;
+    Input *input;
+    Simon *simon;
+
+    int hour;
+    int minute;
+
+    int state = ALARM_NORMAL;
+    int state_count = 0;
+
+    void flash();
+    void clear();
+
+public:
+    Alarm();
+    void setDisplay(Display *display);
+    void setInput(Input *input);
+    void setSimon(Simon *simon);
+    void run();
+    void setup();
+
+    void setAlarm(int minutes);
+    void setAlarm(int hour, int minutes);
+    int getAlarm();
 };
 
 const uint8_t* getNumericalBitmap(int num);
