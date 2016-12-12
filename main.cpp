@@ -10,7 +10,8 @@ Display *display;
 Clock *myClock;
 Alarm *alarm;
 
-void setAlarm(int minutes);
+int setAlarm(String minutes);
+int getAlarm(String input);
 
 
 void setup() {
@@ -35,7 +36,7 @@ void setup() {
 
 
     Particle.function("set_alarm", setAlarm);
-    Particle.variable("get_alarm", alarm->getAlarm());
+    Particle.function("get_alarm", getAlarm);
 }
 
 void loop() {
@@ -64,6 +65,11 @@ void loop() {
     delay(100);
 }
 
-void setAlarm(int minutes) {
-    alarm->setAlarm(minutes);
+int setAlarm(String minutes) {
+    //alarm->setAlarm(minutes);
+    return 0;
+}
+
+int getAlarm(String str) {
+    return alarm->getAlarm();
 }

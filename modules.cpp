@@ -628,16 +628,16 @@ void Alarm::run() {
 
 void Alarm::setAlarm(int hour, int minutes) {
     this->hour = hour;
-    this->minutes = minutes;
+    this->minute = minutes;
 }
 
 void Alarm::setAlarm(int minutes) {
-    this->minutes = minutes % 60;
+    this->minute = minutes % 60;
     this->hour = minutes / 60;
 }
 
 int Alarm::getAlarm() {
-    return hour * 60 + minutes;
+    return hour * 60 + minute;
 }
 
 void Alarm::setup() {
