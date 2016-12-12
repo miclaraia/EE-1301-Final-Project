@@ -6,36 +6,33 @@ using std::string;
 
 void addPin(int pin, string *str);
 
-// void debugButton(int pin) {
-//     string s;
-//     switch(pin) {
-//         case D3:
-//         s = "D3";
-//         break;
-//         case D4:
-//         s = "D4";
-//         break;
-//         case D5:
-//         s = "D5";
-//         break;
-//         case D6:
-//         s = "D6";
-//         break;
-//         case D7:
-//         s = "D7";
-//         break;
-//     }
-
-//     stringstream ss;
-//     ss << s << " button pressed";
-//     s = ss.str();
-//     Serial.print(s.c_str());
-//     Serial.print("\n");
-// }
-
 void debug(string *str) {
     (*str) += "\n\r";
     Serial.print(str->c_str());
+}
+
+void debugButton(int pin) {
+    string s;
+    switch(pin) {
+        case D3:
+        s = "D3";
+        break;
+        case D4:
+        s = "D4";
+        break;
+        case D5:
+        s = "D5";
+        break;
+        case D6:
+        s = "D6";
+        break;
+        case D7:
+        s = "D7";
+        break;
+    }
+
+    s = s + " button pressed";
+    debug(&s);
 }
 
 void debugArray(int *list, int length) {

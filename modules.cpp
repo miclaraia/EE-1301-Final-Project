@@ -127,7 +127,7 @@ void Input::addButton(Button button) {
 }
 
 void Input::addPress(Button *button) {
-    //debugButton(button->pin);
+    debugButton(button->pin);
     if (button->pin == BUTTON_SNOOZE) {
         debugArray(last_pressed->list, last_pressed->count);
         last_pressed->clear();
