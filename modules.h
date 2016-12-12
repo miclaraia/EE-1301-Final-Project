@@ -79,5 +79,5 @@ public:
     void setup();
     void run();
     void draw(int left, int right);
-    void draw(char *str);
+    void draw(Matrix *matrix, int which);
 };

@@ -381,24 +381,7 @@ void HeartBeat::run() {
 }
 
 // %%%%%%%%%%%% DISPLAY DRIVER
-static const uint8_t PROGMEM bmp_top[] =
-    { B11111111,
-      B11111111,
-      B11111111,
-      B00000000,
-      B00000000,
-      B00000000,
-      B00000000 };
 
-static const uint8_t PROGMEM bmp_bottom[] =
-    { B00000000,
-      B00000000,
-      B00000000,
-      B00000000,
-      B11111111,
-      B11111111,
-      B11111111,
-      B11111111 };
 
 
 Display::Display() {
@@ -408,45 +391,52 @@ Display::Display() {
 void Display::setup() {
     active = true;
     state = 0;
-    timer = new MyTimer(500);
+    timer = new MyTimer(1000);
 
     Matrix *matrix;
     matrix = new Adafruit_8x8matrix();
-    matrix->begin(0x70);
+    matrix->begin(0x71);
+    matrix->setRotation(1);
     matrix1 = matrix;
 
     matrix = new Adafruit_8x8matrix();
-    matrix->begin(0x71);
+    matrix->begin(0x70);
+    matrix->setRotation(1);
     matrix2 = matrix;
 }
 void Display::run() {
     if (state == 0) {
         Serial.print("drawing top\n\r");
-        matrix1->clear();
-        matrix1->drawRect(0,0, 8,8, LED_ON);
-        matrix1->fillRect(2,2, 4,4, LED_ON);
-        matrix1->writeDisplay();
+        draw(matrix1, TOPLEFT);
 
-        matrix2->clear();
-        matrix2->drawRect(0,0, 8,8, LED_ON);
-        matrix2->writeDisplay();
     } else if (state == 1) {
         Serial.print("drawing bottom\n\r");
-        matrix1->clear();
-        matrix1->drawBitmap(0, 0, bmp_bottom, 8, 8, LED_ON);
-        matrix1->writeDisplay();
+        draw(matrix1, TOPRIGHT);
 
-        matrix2->clear();
-        matrix2->fillRect(0,0,8,8,LED_OFF);
-        matrix1->writeDisplay();
     }
 
     state ++;
     if (state >= 2) state = 0;
 }
 void Display::draw(int left, int right) {
+    if (left > 0) {
+        draw(matrix1, left);
+    }
+
+    if (right > 0) {
+
+    }
 
 }
-void Display::draw(char *str) {
 
+void Display::draw(Matrix *matrix, int which) {
+    matrix->clear();
+    if (which < 20)
+        matrix->print(which);
+    else if (which == TOPLEFT) 
+        matrix->fillRect(0,0,4,4, LED_ON);
+    else if (which == TOPRIGHT)
+        matrix->fillRect(4,0,4,4, LED_ON);
+
+    matrix->writeDisplay();
 }
