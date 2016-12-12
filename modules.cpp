@@ -607,6 +607,7 @@ void Alarm::run() {
     List<int> *press = input->last_pressed;
     int pin = *(press->get(press->count - 1));
     if (pin == BUTTON_TOPLEFT) {
+        input->clearPresses();
         state = ALARM_FLASH;
         state_count = 0;
     }
