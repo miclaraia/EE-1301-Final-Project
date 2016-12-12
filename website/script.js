@@ -40,7 +40,9 @@ var control = new function() {
             var command = $(event.target).attr("value");
             if (command == "time") {
                 var text = $(event.target).text().split(":");
-                var time = text[0] * 60 + text[1];
+                var hour = parseInt(text[0]);
+                var min = parseInt(text[1]);
+                var time = hour * 60 + min;
 
                 command = "" + time;
                 console.log(text, time);
