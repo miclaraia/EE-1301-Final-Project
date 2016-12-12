@@ -1,0 +1,34 @@
+body {
+    font-family: arial;
+}
+
+div#main {
+    background-color: rgb(245,245,245);
+    margin:100px auto;
+    width:1400px;
+    padding: 20px
+}
+
+div#head {
+    font-size: 20pt;
+    text-align: center;
+}
+
+div#data {
+    margin:50px;
+    display:block;
+}
+
+div#data li {
+    display:block;
+    width:100px;
+    margin:10px 0;
+}
+
+div#data div.list-group {
+    width:300px;
+}
+
+div#tempBox a {
+    margin: 5px 15px;
+}
