@@ -4,10 +4,14 @@ class Module {
 public:
     bool active = false;
     MyTimer *timer;
+    int id;
 
     bool check();
     void run();
     void setup();
+    void setid();
+
+    static int counter;
 };
 
 struct Button;
@@ -45,7 +49,7 @@ class Display : public Module {
     int state = 0;
 
     bool lock_ = false;
-    size_t  key_  = 0;
+    int  key_  = 0;
 
     int left = 0;
     int right = 0;
@@ -58,13 +62,13 @@ public:
     void setup();
     void run();
 
-    void lock(size_t address);
-    void unlock(size_t address);
-    bool isLocked(size_t address);
+    void lock(int address);
+    void unlock(int address);
+    bool isLocked(int address);
 
-    void setSimon(size_t lock_address, int state);
-    void setTime(size_t lock_address, int hour, int minute);
-    void clearDisplay(size_t lock_address);
+    void setSimon(int lock_address, int state);
+    void setTime(int lock_address, int hour, int minute);
+    void clearDisplay(int lock_address);
 };
 
 class Clock : public Module {

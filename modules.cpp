@@ -86,7 +86,13 @@ bool Module::check() {
     return active && timer->check();
 }
 
+void Module::setid() {
+    this->id = Module::counter;
+    Module::counter++;
+}
+
 Input::Input() {
+    setid();
     setup();
 }
 
@@ -174,6 +180,7 @@ void Input::run() {
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Jaydon's shit
 Simon::Simon(){
     timer = new MyTimer(100);
+    setid();
     setup();
 }
 void Simon::setinput(Input *buttoninputs){
@@ -196,28 +203,28 @@ void Simon::simondisplay(){
        
         //topleft
         if (disp[z] ==1){
-            display->setSimon((size_t)this,TOPLEFT);
+            display->setSimon(id,TOPLEFT);
           timer->reset(500);
          continue;
         }
         
         //topright
         if(disp[z] == 2){
-          display->setSimon((size_t)this,TOPRIGHT);
+          display->setSimon(id,TOPRIGHT);
           timer->reset(500);
           continue;
         }
         
         //botleft
         if(disp[z] == 3){
-         display->setSimon((size_t)this,BOTTOMLEFT);
+         display->setSimon(id,BOTTOMLEFT);
           timer->reset(500);
           continue;
         }
         
         //botright
          if (disp[z] == 4) {
-         display->setSimon((size_t)this,BOTTOMRIGHT);
+         display->setSimon(id,BOTTOMRIGHT);
           timer->reset(500);
           continue;
         } 
@@ -254,9 +261,9 @@ void Simon::checking(){
 void Simon::fail(){
  
         for(int i=0; i<2; i++){
-          display->setSimon((size_t)this,TOPRIGHT);
+          display->setSimon(id,TOPRIGHT);
           timer->reset(500);
-          display->clearDisplay((size_t)this);
+          display->clearDisplay(id);
           timer->reset(500);
           }
            
@@ -270,7 +277,7 @@ void Simon::run() {
 if(active){
 
     if(state == DODISPLAY){
-    display->lock((size_t) this);
+    display->lock(id);
     simondisplay();
     state++;}
     if(state == DOBUTTONS){
@@ -294,6 +301,7 @@ if(active){
 HeartBeat::HeartBeat() {
     active = true;
     timer = new MyTimer(500);
+    setid();
 }
 void HeartBeat::run() {
     if (state) digitalWrite(D7, HIGH);
@@ -307,6 +315,7 @@ void HeartBeat::run() {
 
 
 Display::Display() {
+    setid();
     setup();
 }
 
@@ -417,7 +426,7 @@ void Display::draw(Matrix *matrix, int which) {
     matrix->writeDisplay();
 }
 
-void Display::setSimon(size_t lock_address, int state) {
+void Display::setSimon(int lock_address, int state) {
     if (! isLocked(lock_address)) {
         if (state == TOPLEFT) {
             left = TOPLEFT;
@@ -438,33 +447,33 @@ void Display::setSimon(size_t lock_address, int state) {
     }
 }
 
-void Display::setTime(size_t lock_address, int hour, int minute) {
+void Display::setTime(int lock_address, int hour, int minute) {
     if (! isLocked(lock_address)) {
         left = hour;
         right = minute;
     }
 }
 
-void Display::clearDisplay(size_t lock_address) {
+void Display::clearDisplay(int lock_address) {
     if (!isLocked(lock_address)) {
         left = CLEAR;
         right = CLEAR;
     }
 }
 
-void Display::lock(size_t address) {
+void Display::lock(int address) {
     lock_ = true;
     key_ = address;
 }
 
-void Display::unlock(size_t address) {
+void Display::unlock(int address) {
     if (key_ == address) {
         lock_ = false;
         key_ = 0;
     }
 }
 
-bool Display::isLocked(size_t address) {
+bool Display::isLocked(int address) {
     if (lock_ && address != key_) return true;
     return false;
 }
@@ -506,6 +515,7 @@ const uint8_t* getNumericalBitmap(int num) {
 }
 
 Clock::Clock() {
+    setid();
     setup();
 }
 
@@ -520,7 +530,7 @@ void Clock::run() {
     if (hour > 12) hour -= 12;
     minute = Time.minute();
 
-    display->setTime((size_t) this, hour, minute);
+    display->setTime(id, hour, minute);
 }
 
 void Clock::setDisplay(Display *display)  {
@@ -528,6 +538,7 @@ void Clock::setDisplay(Display *display)  {
 }
 
 Alarm::Alarm() {
+    setid();
     setup();
 }
 
@@ -557,14 +568,14 @@ void Alarm::run() {
     }
 
     if (state == ALARM_FLASH) {
-        display->lock((size_t) this);
+        display->lock(id);
         if (state_count % 2 == 0) flash();
         else clear();
 
         state_count ++;
         if (state_count > 4) {
             state = ALARM_NORMAL;
-            display->unlock((size_t) this);
+            display->unlock(id);
         }
     }
 
@@ -591,11 +602,11 @@ void Alarm::setup() {
 }
 
 void Alarm::flash() {
-    display->setTime((size_t) this, hour, minute);
+    display->setTime(id, hour, minute);
 }
 
 void Alarm::clear() {
-    display->clearDisplay((size_t) this);
+    display->clearDisplay(id);
 }
 
 

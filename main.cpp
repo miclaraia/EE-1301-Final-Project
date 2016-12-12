@@ -13,6 +13,8 @@ Simon *simon;
 int setAlarm(String minutes);
 int getAlarm(String input);
 
+int Module::counter = 0;
+
 
 void setup() {
     Serial.begin(9600);
