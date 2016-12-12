@@ -110,6 +110,7 @@ void Input::run() {
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Jaydon's shit
 Simon :: Simon(){
 timer = new MyTimer(100);
+
 static const uint8_t
   topleft_bmp[] =
   { B11100001,
@@ -172,11 +173,15 @@ matrix.setTextWrap(false);
 matrix.setCursor(0,0);
 matrix.begin(0x70);
 setup();
+int state = 1;
 
 
 
 }
+void Simon :: setinput(Input *buttoninputs){
+	buttons = buttoninputs;
 
+}
 void Simon :: setup(){
 for(int j = 0; j< R; j++){
            disp[j] = random(3) + 1;
@@ -240,11 +245,65 @@ for(int z = 0; z < rn; z++){
 
 }
 }
+void Simon :: buttons() {
+	if (rn == buttons->last_pressed->count){
+		state++;
+		//buttons->last_pressed->list[]
+	}
+
+}
+void Simon :: checks(){
+for(int i =0; i<rn; i++){
+	if(buttons->last_pressed->list[i] == BUTTON_TOPLEFT)
+		check[i] = TOPLEFT;
+	else if(buttons->last_pressed->list[i] == BUTTON_TOPRIGHT)
+		check[i] = TOPRIGHT;
+	else if(buttons->last_pressed->list[i] == BUTTON_BOTTOMLEFT)
+		check[i] = BOTTOMLEFT;
+	else if(buttons->last_pressed->list[i] == BUTTON_BOTTOMRIGHT)
+		check[i] = BOTTOMRIGHT;
+	else if state = 1;
+}
+for (int i =0; i<rn; i++)
+	if(disp[i] != check[i])
+		fail();
+
+
+state++;
+}
+void Simon :: fail(){
+ 
+        for(int i=0; i<2; i++){
+          matrix.clear();
+          matrix.drawBitmap(0, 0, X_bmp, 8, 8, LED_ON);
+          matrix.writeDisplay();
+          delay(500);
+          matrix.drawBitmap(0, 0, clean_bmp, 8, 8, LED_OFF);
+          matrix.writeDisplay();
+          delay(500);
+          
+          }
+           
+           rn = 1;
+           state =1;
+           }
+
+
+
 void Simon :: run() {
 if(active){
-setup();
-disp();
-
+	if(state == DODISPLAY){
+	disp();
+	state++;}
+	if(state == DOBUTTONS){
+	buttons();
+	}
+	if(state == DOCHECKS){
+	checks();
+	}
+	if(state == PASSED){
+		active = false;
+	}
 
 
 
