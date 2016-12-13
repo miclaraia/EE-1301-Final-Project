@@ -40,6 +40,8 @@ void setup() {
 
     alarm->setSimon(simon);
 
+    alarm->setClock(myClock);
+
 
     Particle.function("set_alarm", setAlarm);
     Particle.function("get_alarm", getAlarm);

@@ -15,6 +15,7 @@ public:
     void run();
     void setup();
     void setDisplay(Display *display);
+    int getTime();
 };
 
 /**
@@ -24,6 +25,7 @@ class Alarm : public Module {
     Display *display;
     Input *input;
     Simon *simon;
+    Clock *clock;
 
     int hour;
     int minute;
@@ -42,6 +44,7 @@ public:
     void setDisplay(Display *display);
     void setInput(Input *input);
     void setSimon(Simon *simon);
+    void setClock(Clock *clock);
     void run();
     void setup();
 

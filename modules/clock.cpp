@@ -34,6 +34,13 @@ void Clock::setDisplay(Display *display)  {
     this->display = display;
 }
 
+/**
+ * Returns the current time as sum of minutes
+ */
+int Clock::getTime() {
+    return hour * 60 + minute;
+}
+
 Alarm::Alarm() {
     setup();
 }
@@ -60,6 +67,13 @@ void Alarm::setSimon(Simon *simon) {
 }
 
 /**
+ * Set pointer to clock module
+ */
+void Alarm::setClock(Clock *clock) {
+    this->clock = clock;
+}
+
+/**
  * Checks for relevant button presses, like snooze button,
  * Alarm display button, etc. Can be put in mode where
  * it takes control of display and flashes alarm time
@@ -72,6 +86,13 @@ void Alarm::run() {
         // Get most recent button press
         List<int> *press = input->last_pressed;
         int pin = *(press->get(press->count - 1));
+
+        /**
+         * Triggers alarm state if the time is right
+         */
+        if (clock->getTime() == getAlarm()) {
+            trigger();
+        }
 
         /**
          * When in clock mode, pressing top-left button
@@ -87,8 +108,8 @@ void Alarm::run() {
          * activates simon says game
          */
         else if (pin == BUTTON_TOPRIGHT
-            || state == ALARM_TRIGGER 
-            &&   pin == BUTTON_SNOOZE) {
+            || (state == ALARM_TRIGGER 
+            &&   pin == BUTTON_SNOOZE)) {
 
             input->clearPresses();
             simon->active = true;
@@ -170,16 +191,16 @@ void Alarm::clear() {
     display->clearDisplay(id);
 }
 
-void trigger() {
+void Alarm::trigger() {
     state = ALARM_FLASH;
     flash_count = 0;
-    flash_max = ALARM_TRIGGER_COUNT
+    flash_max = ALARM_TRIGGER_COUNT;
 }
 
-void enable() {
+void Alarm::enable() {
     enabled = true;
 }
 
-void disable() {
+void Alarm::disable() {
     enabled = false;
 }
