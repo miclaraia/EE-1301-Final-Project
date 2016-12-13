@@ -106,4 +106,6 @@ int action(String str) {
     if (str.compareTo("trigger") == 0) alarm->trigger();
     else if (str.compareTo("reset") == 0) setup();
     else if (str.compareTo("play") == 0) simon->play();
+    else if (str.compareTo("disable") == 0) alarm->disable();
+    else if (str.compareTo("enable") == 0) alarm->enable();
 }
