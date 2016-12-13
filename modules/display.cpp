@@ -56,43 +56,7 @@ void Display::draw(Matrix *matrix, int which) {
         matrix->drawBitmap(0,0, left_bitmap, 4,8, LED_ON);
         matrix->drawBitmap(4,0, right_bitmap, 4,8, LED_ON);
     }
-    // if (which == 1)
-    //     matrix->drawBitmap(4,0, bmp_1, 4,8, LED_ON);
-    // else if (which == 2)
-    //     matrix->drawBitmap(4,0, bmp_2, 4,8, LED_ON);
-    // else if (which == 3)
-    //     matrix->drawBitmap(4,0, bmp_3, 4,8, LED_ON);
-    // else if (which == 4)
-    //     matrix->drawBitmap(4,0, bmp_4, 4,8, LED_ON);
-    // else if (which == 5)
-    //     matrix->drawBitmap(4,0, bmp_5, 4,8, LED_ON);
-    // else if (which == 6)
-    //     matrix->drawBitmap(4,0, bmp_6, 4,8, LED_ON);
-    // else if (which == 7)
-    //     matrix->drawBitmap(4,0, bmp_7, 4,8, LED_ON);
-    // else if (which == 8)
-    //     matrix->drawBitmap(4,0, bmp_8, 4,8, LED_ON);
-    // else if (which == 9)
-    //     matrix->drawBitmap(4,0, bmp_9, 4,8, LED_ON);
-    // else if (which == 10) {
-    //     matrix->drawBitmap(0,0, bmp_1, 4,8, LED_ON);
-    //     matrix->drawBitmap(4,0, bmp_0, 4,8, LED_ON);
-    // }
-    // else if (which == 11){
-    //     matrix->drawBitmap(0,0, bmp_1, 4,8, LED_ON);
-    //     matrix->drawBitmap(4,0, bmp_1, 4,8, LED_ON);
-    // }
-    // else if (which == 12){
-    //     matrix->drawBitmap(0,0, bmp_1, 4,8, LED_ON);
-    //     matrix->drawBitmap(4,0, bmp_2, 4,8, LED_ON);
-    //}
-    // else if (which > 4 && which < 20) {
-    //     matrix->setTextSize(1);
-    //     matrix->setTextWrap(false);
-    //     matrix->setTextColor(LED_ON);
-    //     matrix->setCursor(0,0);
-    //     matrix->print(which);
-    // }
+    
     else if (which == CLEAR)
         matrix->drawBitmap(0,0, bmp_empty, 8,8, LED_ON);
     else if (which == TOPLEFT) 
