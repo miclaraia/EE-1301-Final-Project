@@ -134,8 +134,15 @@ if(active){
         display->unlock(id);
     }
 }
+}
 
+void Simon::play() {
+  active = true;
+  state = 1;
+  rn = 1;
 
+  setup();
 
-
+  buttons->clearPresses();
+  timer->reset();
 }

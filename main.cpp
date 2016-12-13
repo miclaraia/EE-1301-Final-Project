@@ -105,4 +105,5 @@ int getAlarm(String str) {
 int action(String str) {
     if (str.compareTo("trigger") == 0) alarm->trigger();
     else if (str.compareTo("reset") == 0) setup();
+    else if (str.compareTo("play") == 0) simon->play();
 }

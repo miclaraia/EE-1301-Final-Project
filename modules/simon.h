@@ -10,27 +10,21 @@ class Simon : public Module {
     int rn =1;
     int state = 1;
     
-  void setup();
+    void setup();
 
-  Input *buttons;
-  Display *display;
+    Input *buttons;
+    Display *display;
 public : 
-Simon();
-void setDisplay(Display *display);  
-void simondisplay();
-void checking();
-void fail();
-void doButtons();
+    Simon();
+    void setDisplay(Display *display);  
+    void simondisplay();
+    void checking();
+    void fail();
+    void doButtons();
 
-void setInput(Input *buttoninputs);
-static const uint8_t
-  topleft_bmp[],
-  topright_bmp[], 
-  botleft_bmp[], 
-  botright_bmp[],
-  X_bmp[],
-  clean_bmp[];
-    
+    void play();
+
+    void setInput(Input *buttoninputs);
     void run();
 
 };

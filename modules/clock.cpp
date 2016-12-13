@@ -114,9 +114,7 @@ void Alarm::run() {
             display->unlock(id);
             state = ALARM_NORMAL;
 
-            input->clearPresses();
-            simon->active = true;
-            simon->timer->reset();
+            simon->play();
         }
 
         /**
