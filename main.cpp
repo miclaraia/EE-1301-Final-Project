@@ -13,6 +13,7 @@ Simon *simon;
 
 int setAlarm(String minutes);
 int getAlarm(String input);
+int action(String str);
 
 int Module::counter = 0;
 
@@ -45,6 +46,7 @@ void setup() {
 
     Particle.function("set_alarm", setAlarm);
     Particle.function("get_alarm", getAlarm);
+    Particle.function("action", action);
 }
 
 void loop() {
@@ -86,4 +88,8 @@ int setAlarm(String minutes) {
 
 int getAlarm(String str) {
     return alarm->getAlarm();
+}
+
+int action(String str) {
+    if (str.compareTo("trigger") == 0) alarm->trigger();
 }

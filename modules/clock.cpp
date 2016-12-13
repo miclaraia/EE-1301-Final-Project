@@ -110,6 +110,9 @@ void Alarm::run() {
         else if (pin == BUTTON_TOPRIGHT
             || (state == ALARM_TRIGGER 
             &&   pin == BUTTON_SNOOZE)) {
+            
+            display->unlock(id);
+            state = ALARM_NORMAL;
 
             input->clearPresses();
             simon->active = true;
@@ -192,7 +195,7 @@ void Alarm::clear() {
 }
 
 void Alarm::trigger() {
-    state = ALARM_FLASH;
+    state = ALARM_TRIGGER;
     flash_count = 0;
     flash_max = ALARM_TRIGGER_COUNT;
 }

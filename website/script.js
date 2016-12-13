@@ -1,6 +1,7 @@
 var getURL = "https://api.particle.io/v1/devices/2d0025000d47343432313031/get_alarm?access_token=3f58b6b8cb492253bc9f083dfbda6bef24d70b8b";
 //var tempURL = "http://httpbin.org/get";
 var setURL = "https://api.particle.io/v1/devices/2d0025000d47343432313031/set_alarm?access_token=3f58b6b8cb492253bc9f083dfbda6bef24d70b8b";
+var actionURL = "https://api.particle.io/v1/devices/2d0025000d47343432313031/action?access_token=3f58b6b8cb492253bc9f083dfbda6bef24d70b8b";
 
 
 var control = new function() {
@@ -49,7 +50,7 @@ var control = new function() {
             }
             console.log(command);
 
-            var post = $.post(setURL, {args: command},
+            var post = $.post(actionURL, {args: command},
                 function() {
                     console.log("Request sent", this);
                 }

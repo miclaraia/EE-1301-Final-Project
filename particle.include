@@ -1,7 +1,6 @@
 adafruit-led-backpack/.
 
 adafruit.h
-bitmaps.h
 debug.h
 definitions.h
 includes.h
