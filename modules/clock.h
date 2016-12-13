@@ -1,6 +1,9 @@
 #ifndef CLOCK_H_
 #define CLOCK_H_
 
+/**
+ * Module to handle the clock functionality
+ */
 class Clock : public Module {
     Display *display;
 
@@ -14,6 +17,9 @@ public:
     void setDisplay(Display *display);
 };
 
+/**
+ * Module to handle the alarm functionality
+ */
 class Alarm : public Module {
     Display *display;
     Input *input;

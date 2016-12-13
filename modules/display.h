@@ -4,7 +4,6 @@
 class Display : public Module {
     Matrix *matrix1;
     Matrix *matrix2;
-    int state = 0;
 
     bool lock_ = false;
     int  key_  = 0;
@@ -20,15 +19,23 @@ public:
     void setup();
     void run();
 
-    void lock(int address);
-    void unlock(int address);
-    bool isLocked(int address);
+    /**
+     * Locking functionality for the display module.
+     * As there are multiple modules that will be competing
+     * for the screen, need to control access. Each module
+     * can lock/unlock the display using its id assigned by
+     * the module base class, and can only draw on the screen
+     * if it locked the screen or the screen is nott locked
+     */
+    void lock(int id);
+    void unlock(int id);
+    bool isLocked(int id);
 
-    void setSimon(int lock_address, int state);
-    void setTime(int lock_address, int hour, int minute);
-    void clearDisplay(int lock_address);
+    void setSimon(int lock_id, int state);
+    void setTime(int lock_id, int hour, int minute);
+    void clearDisplay(int lock_id);
 };
 
-const uint8_t* getNumericalBitmap(int num);
+const uint8_t* getNumericalBitmap(int bitmap);
 
 #endif

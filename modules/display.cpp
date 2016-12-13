@@ -6,9 +6,13 @@ Display::Display() {
     setup();
 }
 
+/**
+ * Initialize variables and matrix
+ */
 void Display::setup() {
+    // Make active
     active = true;
-    state = 0;
+    // Create timer
     timer = new MyTimer(250);
 
     Matrix *matrix;
@@ -22,15 +26,17 @@ void Display::setup() {
     matrix->setRotation(1);
     matrix2 = matrix;
 }
+
+/**
+ * Draw the image currently set to left and right variable
+ */
 void Display::run() {
     draw(left, right);
-    // draw(matrix1, state / 5);
-    // draw(matrix2, state);
-
-    // state ++;
-    // //if (state > 12 && state < 21) state = 21;
-    // if (state > 60) state = 0;
 }
+
+/**
+ * Draw the requested images
+ */ 
 void Display::draw(int left, int right) {
     if (left >= 0) {
         draw(matrix1, left);
@@ -42,42 +48,66 @@ void Display::draw(int left, int right) {
 
 }
 
+/**
+ * Draw the rqeuested image to this matrix
+ */
 void Display::draw(Matrix *matrix, int which) {
     matrix->clear();
 
+    // Numbers are 0 - 100, and other special bitmaps have
+    // reference numbers > 100
     if (which < 100) {
+
+        // Split number into respective digits
         int right = which % 10;
         int left = which / 10;
 
+        // Get reference to the bitmaps
         const uint8_t *left_bitmap = getNumericalBitmap(left);
         const uint8_t *right_bitmap = getNumericalBitmap(right);
 
+        // Draw each digit on the matrix
+        // Right digit is offset by 4
+        // Each digit has width of 3, so there should
+        // be a 1 col gap between them
         matrix->drawBitmap(0,0, left_bitmap, 4,8, LED_ON);
         matrix->drawBitmap(4,0, right_bitmap, 4,8, LED_ON);
     }
-    -
+    
+    // Not a digit, draw the bitmap on the whole width of the matrix
     else if (which == CLEAR)
         matrix->drawBitmap(0,0, bmp_empty, 8,8, LED_ON);
+
     else if (which == TOPLEFT) 
         matrix->fillRect(0,0,4,4, LED_ON);
+
     else if (which == TOPRIGHT)
         matrix->fillRect(4,0,4,4, LED_ON);
+
     else if (which == BOTTOMLEFT) 
         matrix->fillRect(0,4,4,4, LED_ON);
+
     else if (which == BOTTOMRIGHT)
         matrix->fillRect(4,4,4,4, LED_ON);
+
     else if (which == TOP)
         matrix->fillRect(0,0,8,4, LED_ON);
+
     else if (which == BOTTOM)
         matrix->fillRect(0,4,8,4, LED_ON);
+
     else if (which == X)
         matrix->drawBitmap(0,0, bmp_x, 8,8, LED_ON);
+
 
     matrix->writeDisplay();
 }
 
-void Display::setSimon(int lock_address, int state) {
-    if (! isLocked(lock_address)) {
+/**
+ * Convenience method so simon can draw its images
+ */
+void Display::setSimon(int lock_id, int state) {
+    if (! isLocked(lock_id)) {
         if (state == TOPLEFT) {
             left = TOPLEFT;
             right = CLEAR;
@@ -97,41 +127,61 @@ void Display::setSimon(int lock_address, int state) {
     }
 }
 
-void Display::setTime(int lock_address, int hour, int minute) {
-    if (! isLocked(lock_address)) {
+/**
+ * Convenience method so the clock and alarm can draw a time
+ * easily.
+ */
+void Display::setTime(int lock_id, int hour, int minute) {
+    if (! isLocked(lock_id)) {
         left = hour;
         right = minute;
     }
 }
 
-void Display::clearDisplay(int lock_address) {
-    if (!isLocked(lock_address)) {
+/**
+ * Empty the screen
+ */
+void Display::clearDisplay(int lock_id) {
+    if (!isLocked(lock_id)) {
         left = CLEAR;
         right = CLEAR;
     }
 }
 
-void Display::lock(int address) {
+/**
+ * Lock the screen
+ */
+void Display::lock(int id) {
     if (!lock_) {
         lock_ = true;
-        key_ = address;
+        key_ = id;
     }
 }
 
-void Display::unlock(int address) {
-    if (key_ == address) {
+/**
+ * Unlock the screen
+ */
+void Display::unlock(int id) {
+    if (key_ == id) {
         lock_ = false;
         key_ = 0;
     }
 }
 
-bool Display::isLocked(int address) {
-    if (lock_ && address != key_) return true;
+/**
+ * Check if the module with this id can
+ * use the display
+ */
+bool Display::isLocked(int id) {
+    if (lock_ && id != key_) return true;
     return false;
 }
 
-const uint8_t* getNumericalBitmap(int num) {
-    switch(num) {
+/**
+ * Method to get a pointer to a bitmap from memory
+ */
+const uint8_t* getNumericalBitmap(int bitmap) {
+    switch(bitmap) {
         case 1:
         return bmp_1;
 
