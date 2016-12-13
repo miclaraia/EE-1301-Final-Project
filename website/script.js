@@ -13,13 +13,19 @@ var control = new function() {
             self.block = $("div#dataBox");
             self.value = $("div#dataBox span#value");
             self.update_button = $("div#dataBox a#updateButton"); 
-            self.time_buttons = $("div#set_alarm a");
+            self.time_buttons = $("div#set_alarm a.time-set");
             self.action_buttons = $("div#actions a");
+
+            self.custom_alarm = $("div#custom_alarm input");
+            self.custom_alarm_button = $("div#custom_alarm_button");
         }
 
         self.initTimeSetButtons();
         self.initActionButtons();
         self.initUpdateButton();
+        self.initCustomAlarm();
+
+        self.getAlarm();
     };
 
     // button to get new state from server
@@ -44,15 +50,28 @@ var control = new function() {
             var minutes = $(event.target).attr("value");
             if (minutes == "time") {
                 var text = $(event.target).text().split(":");
-                var hour = parseInt(text[0]);
-                var min = parseInt(text[1]);
-                var time = hour * 60 + min;
-
-                minutes = "" + time;
-                console.log(text, time);
+                minutes = self.getMinutesFromString(text);
             }
             self.setAlarm(minutes);
 
+        });
+    };
+
+
+
+    self.initCustomAlarm = function() {
+        var field = self.elements.custom_alarm;
+        var button = self.elements.custom_alarm_button;
+
+        button.click(function(event) {
+            event.preventdefault();
+            console.log(event);
+
+            var text = field.text().split(":");
+            var minutes = self.getMinutesFromString(text);
+
+            console.log("minutes: ", minutes);
+            self.setAlarm(minutes);
         });
     };
 
@@ -68,7 +87,7 @@ var control = new function() {
             self.sendAction(command);
 
         });
-    }
+    };
 
     self.setAlarm = function(minutes) {
         var command = "" + minutes;
@@ -121,7 +140,18 @@ var control = new function() {
 
         if (minute < 10) minute = "0" + minute;
         self.elements.value.text(hour + ":" + minute);
-    }
+    };
+
+    self.getMinutesFromString = function(time_str) {
+        var text = time_str.split(":");
+        var hour = parseInt(text[0]);
+        var min = parseInt(text[1]);
+        var time = hour * 60 + min;
+
+        minutes = "" + time;
+
+        return minutes;
+    };
 
 };
 
