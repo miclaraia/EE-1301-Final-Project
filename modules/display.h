@@ -30,6 +30,7 @@ public:
     void lock(int id);
     void unlock(int id);
     bool isLocked(int id);
+    void forceUnlock();
 
     void setSimon(int lock_id, int state);
     void setTime(int lock_id, int hour, int minute);

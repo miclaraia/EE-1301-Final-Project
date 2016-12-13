@@ -25,10 +25,23 @@ div#data li {
     margin:10px 0;
 }
 
-div#data div.list-group {
+div.list-group {
     width:300px;
+}
+
+div#main table {
+    margin: auto;
+}
+
+div#main table td {
+    padding: 0 50px;
+}
+
+div#actions div.list-group a {
+    text-align: center;
 }
 
 div#tempBox a {
     margin: 5px 15px;
 }
+

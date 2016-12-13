@@ -178,6 +178,14 @@ bool Display::isLocked(int id) {
 }
 
 /**
+ * Force the display to unlock. Only used for overriding purposes,
+ * never use this for regular locking/unlocking
+ */
+void Display::forceUnlock() {
+    lock_ = false;
+}
+
+/**
  * Method to get a pointer to a bitmap from memory
  */
 const uint8_t* getNumericalBitmap(int bitmap) {

@@ -12,26 +12,52 @@ var control = new function() {
             var self = this;
             self.block = $("div#dataBox");
             self.value = $("div#dataBox span#value");
-            self.updateButton = $("div#dataBox a#updateButton");
+            self.update_button = $("div#dataBox a#updateButton"); 
+            self.time_buttons = $("div#set_alarm a");
+            self.action_buttons = $("div#actions a");
         }
 
-        self.controlButtons();
-        self.updateButton();
+        self.initTimeSetButtons();
+        self.initActionButtons();
+        self.initUpdateButton();
     };
 
     // button to get new state from server
-    self.updateButton = function() {
-        var update = self.elements.updateButton;
+    self.initUpdateButton = function() {
+        var update = self.elements.update_button;
         console.log(update);
         update.click(function(event) {
             event.preventDefault();
-            self.updateValue();
+            self.getAlarm();
         });
     };
 
     // buttons in list that set state of photon
-    self.controlButtons = function() {
-        var items = $("div#input a");
+    self.initTimeSetButtons = function() {
+        var items = self.elements.time_buttons;
+
+        console.log(items);
+        items.click(function(event) {
+            event.preventDefault();
+            console.log(event);
+
+            var minutes = $(event.target).attr("value");
+            if (minutes == "time") {
+                var text = $(event.target).text().split(":");
+                var hour = parseInt(text[0]);
+                var min = parseInt(text[1]);
+                var time = hour * 60 + min;
+
+                minutes = "" + time;
+                console.log(text, time);
+            }
+            self.setAlarm(minutes);
+
+        });
+    };
+
+    self.initActionButtons = function() {
+        var items = self.elements.action_buttons;
 
         console.log(items);
         items.click(function(event) {
@@ -39,32 +65,40 @@ var control = new function() {
             console.log(event);
 
             var command = $(event.target).attr("value");
-            if (command == "time") {
-                var text = $(event.target).text().split(":");
-                var hour = parseInt(text[0]);
-                var min = parseInt(text[1]);
-                var time = hour * 60 + min;
-
-                command = "" + time;
-                console.log(text, time);
-            }
-            console.log(command);
-
-            var post = $.post(setURL, {args: command},
-                function() {
-                    console.log("Request sent", this);
-                }
-            );
-
-            post.done(function(){console.log("request done", post)});
-            post.fail(function(){console.log("request failed")});
-
-            self.post = post;
+            self.sendAction(command);
 
         });
-    };
+    }
 
-    self.updateValue = function() {
+    self.setAlarm = function(minutes) {
+        var command = "" + minutes;
+
+        var post = $.post(setURL, {args: command},
+            function() {
+                console.log("Request sent", this);
+            }
+        );
+
+        post.done(function(){console.log("request done", post)});
+        post.fail(function(){console.log("request failed")});
+
+        self.post = post;
+    }
+
+    self.sendAction = function(command) {
+        var post = $.post(actionURL, {args: command},
+            function() {
+                console.log("Request sent", this);
+            }
+        );
+
+        post.done(function(){console.log("request done", post)});
+        post.fail(function(){console.log("request failed")});
+
+        self.post = post;
+    }
+
+    self.getAlarm = function() {
         var post = $.post(getURL, {args: ""},
             function(data) {
                 console.log("Request sent", this);
@@ -78,16 +112,6 @@ var control = new function() {
         post.fail(function(){console.log("request failed")});
 
         self.post = post;
-        // var request = $.get(tempURL, function(data) {
-        //     console.log(data);
-
-        //     var value = data.result;
-        //     console.log("Alarm: " + value);
-
-        //     self.updateDataBlock(value);
-
-        // });
-        // console.log(request);
     };
 
     self.updateDataBlock = function(value) {
