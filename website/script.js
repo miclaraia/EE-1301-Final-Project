@@ -50,7 +50,7 @@ var control = new function() {
             }
             console.log(command);
 
-            var post = $.post(actionURL, {args: command},
+            var post = $.post(setURL, {args: command},
                 function() {
                     console.log("Request sent", this);
                 }

@@ -106,7 +106,7 @@ void Simon::fail(){
         for(int i=0; i<2; i++){
           display->setSimon(id,X);
           timer->reset(500);
-          display->clearDisplay(id);
+          //display->clearDisplay(id);
           timer->reset(500);
           }
            
