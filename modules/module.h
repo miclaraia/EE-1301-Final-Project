@@ -11,6 +11,8 @@ public:
     MyTimer *timer;
     int id;
 
+    Module();
+
     bool check();
     void run();
     void setup();

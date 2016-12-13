@@ -5,7 +5,6 @@
 
 Simon::Simon(){
     timer = new MyTimer(100);
-    setid();
     setup();
 }
 void Simon::setInput(Input *buttoninputs){

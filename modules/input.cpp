@@ -4,7 +4,6 @@
 #include "application.h"
 
 Input::Input() {
-    setid();
     setup();
 }
 

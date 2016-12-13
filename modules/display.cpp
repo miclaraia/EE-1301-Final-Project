@@ -3,7 +3,6 @@
 #include "display.h"
 
 Display::Display() {
-    setid();
     setup();
 }
 
@@ -56,7 +55,7 @@ void Display::draw(Matrix *matrix, int which) {
         matrix->drawBitmap(0,0, left_bitmap, 4,8, LED_ON);
         matrix->drawBitmap(4,0, right_bitmap, 4,8, LED_ON);
     }
-    
+    -
     else if (which == CLEAR)
         matrix->drawBitmap(0,0, bmp_empty, 8,8, LED_ON);
     else if (which == TOPLEFT) 

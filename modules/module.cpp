@@ -1,6 +1,10 @@
 #include "module.h"
 #include "debug.h"
 
+Module::Module() {
+    setid();
+}
+
 bool Module::check() {
     return active && timer->check();
 }

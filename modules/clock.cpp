@@ -6,7 +6,6 @@
 #include "definitions.h"
 
 Clock::Clock() {
-    setid();
     setup();
 }
 
@@ -29,7 +28,6 @@ void Clock::setDisplay(Display *display)  {
 }
 
 Alarm::Alarm() {
-    setid();
     setup();
 }
 
