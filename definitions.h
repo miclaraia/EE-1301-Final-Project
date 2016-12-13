@@ -30,5 +30,9 @@
 //  Section for Alarm state definitions
 #define ALARM_NORMAL 0
 #define ALARM_FLASH 1
+#define ALARM_TRIGGER 2
+
+#define ALARM_FLASH_COUNT 4
+#define ALARM_TRIGGER_COUNT 60
 
 #endif

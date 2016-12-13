@@ -86,7 +86,10 @@ void Alarm::run() {
          * Currently, pressing snooze button 
          * activates simon says game
          */
-        else if (pin == BUTTON_SNOOZE) {
+        else if (pin == BUTTON_TOPRIGHT
+            || state == ALARM_TRIGGER 
+            &&   pin == BUTTON_SNOOZE) {
+
             input->clearPresses();
             simon->active = true;
             simon->timer->reset();
@@ -95,13 +98,13 @@ void Alarm::run() {
         /**
          * Take control of display and flash the alarm time
          */
-        if (state == ALARM_FLASH) {
+        if (state == ALARM_FLASH || state == ALARM_TRIGGER) {
             display->lock(id);
-            if (state_count % 2 == 0) flash();
+            if (flash_count % 2 == 0) flash();
             else clear();
 
-            state_count ++;
-            if (state_count > 4) {
+            flash_count ++;
+            if (flash_count > flash_max) {
                 state = ALARM_NORMAL;
                 display->unlock(id);
             }
@@ -115,7 +118,8 @@ void Alarm::run() {
  */
 void Alarm::displayAlarm() {
     state = ALARM_FLASH;
-    state_count = 0;
+    flash_count = 0;
+    flash_max = ALARM_FLASH_COUNT;
 
 }
 
@@ -164,4 +168,18 @@ void Alarm::flash() {
  */
 void Alarm::clear() {
     display->clearDisplay(id);
+}
+
+void trigger() {
+    state = ALARM_FLASH;
+    flash_count = 0;
+    flash_max = ALARM_TRIGGER_COUNT
+}
+
+void enable() {
+    enabled = true;
+}
+
+void disable() {
+    enabled = false;
 }

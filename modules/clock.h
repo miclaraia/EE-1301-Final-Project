@@ -29,7 +29,10 @@ class Alarm : public Module {
     int minute;
 
     int state = 0;
-    int state_count = 0;
+    int flash_count = 0;
+    int flash_max = 0;
+
+    bool enabled = true;
 
     void flash();
     void clear();
@@ -47,6 +50,10 @@ public:
     void setAlarm(int minutes);
     void setAlarm(int hour, int minutes);
     int getAlarm();
+
+    void trigger();
+    void enable();
+    void disable();
 };
 
 #endif
