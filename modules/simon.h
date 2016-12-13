@@ -9,6 +9,7 @@ class Simon : public Module {
     int checks[R];
     int rn =1;
     int state = 1;
+    int tempstate =1;
     
     void setup();
 
