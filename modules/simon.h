@@ -7,9 +7,11 @@
 class Simon : public Module {
     int disp[R+1];
     int checks[R];
-    int rn =1;
+    int rn =5;
     int state = 1;
     int tempstate =1;
+    int z =0; // will need to be reset
+
     
     void setup();
 

@@ -4,7 +4,7 @@
 #include "simon.h"
 
 Simon::Simon(){
-    timer = new MyTimer(100);
+    timer = new MyTimer(500);
     setup();
 }
 void Simon::setInput(Input *buttoninputs){
@@ -22,78 +22,65 @@ void Simon::setup(){
 
 }
 void Simon::simondisplay(){
-      for(int z = 0; z < rn; z++){
-         
+     // for(int z = 0; z < rn; z++){
+       Serial.print("t; ");
+       Serial.print(tempstate);
+       Serial.print("\n\r");
+       if(z >= rn){
+        display->clearDisplay(id);
+        state++;
+      }
+
+      if(tempstate > 1){
+
+        if(tempstate > 2)
+          tempstate = 0;
+          else tempstate++;
+
+        display->clearDisplay(id);
+        z++;
+        }
+        
+
        
+     if (tempstate <= 1){
+        ///////////////////////////////////
         //topleft
         if (disp[z] ==1){
-            if(tempstate == 1){
-            display->setSimon(id,TOPLEFT);
-            tempstate++;
-             timer->reset(500);
-             z--; // z-- to make sure that it reenters this iteration of disp
-         }
-            if(tempstate == 2){
-            tempstate = 1;
-             display->clearDisplay(id);
-          timer->reset(500);
-            }
-        
-         continue;
+            
+         display->setSimon(id,TOPLEFT);
+
+         tempstate++;    
+    
         }
         ///////////////////////////////////
         //topright
         if(disp[z] == 2){
-            if(tempstate == 1){
+            
           display->setSimon(id,TOPRIGHT);
-          timer->reset(500);
+          
           tempstate++;
-          z--;
-      }
-        
-           if(tempstate == 2){
-            tempstate = 1;
-             display->clearDisplay(id);
-          timer->reset(500);
-          continue;
-        }
         }
         ///////////////////////////////////
         //botleft
         if(disp[z] == 3){
-            if(tempstate == 1){
+            
          display->setSimon(id,BOTTOMLEFT);
-          timer->reset(500);
+          
           tempstate++;
-          z--;
-      }
-           if(tempstate == 2){
-            tempstate = 1;
-             display->clearDisplay(id);
-          timer->reset(500);
-          continue;
-        }
+  
         }
         ///////////////////////////////////
         //botright
          if (disp[z] == 4) {
-            if(tempstate == 1){
+            
          display->setSimon(id,BOTTOMRIGHT);
-          timer->reset(500); 
-          tempstate++;
-          z--;
-      }
-         // display->clearDisplay(id);
-          //timer->reset(500);
-           if(tempstate == 2){
-            tempstate = 1;
-             display->clearDisplay(id);
-          timer->reset(500);
-          continue;
-        } 
+           
+          tempstate++;      
+    
         }
-
-    }
+      }
+   
 }
 //     for(int z = 0; z < rn; z++){
          
@@ -101,36 +88,36 @@ void Simon::simondisplay(){
 //         //topleft
 //         if (disp[z] ==1){
 //             display->setSimon(id,TOPLEFT);
-//           timer->reset(500);
+//           
 //           //display->clearDisplay(id);
-//           //timer->reset(500);
+//           //
 //          continue;
 //         }
         
 //         //topright
 //         if(disp[z] == 2){
 //           display->setSimon(id,TOPRIGHT);
-//           timer->reset(500);
+//           
 //          // display->clearDisplay(id);
-//           //timer->reset(500);
+//           //
 //           continue;
 //         }
         
 //         //botleft
 //         if(disp[z] == 3){
 //          display->setSimon(id,BOTTOMLEFT);
-//           timer->reset(500);
+//           
 //           //display->clearDisplay(id);
-//           //timer->reset(500);
+//           //
 //           continue;
 //         }
         
 //         //botright
 //          if (disp[z] == 4) {
 //          display->setSimon(id,BOTTOMRIGHT);
-//           timer->reset(500);
+//           
 //          // display->clearDisplay(id);
-//           //timer->reset(500);
+//           //
 //           continue;
 //         } 
         
@@ -179,13 +166,13 @@ void Simon::fail(){
  for(int i=0; i<2; i++){
         if (tempstate == 1){
           display->setSimon(id,X);
-          timer->reset(500);
+          
           tempstate++;
           i--; // same reason as the z-- before
             }
         if (tempstate == 2){
           display->clearDisplay(id);
-          timer->reset(500);
+          
           tempstate--;
           }
            }
@@ -198,9 +185,9 @@ void Simon::fail(){
  
         // for(int i=0; i<2; i++){
         //   display->setSimon(id,X);
-        //   timer->reset(500);
+        //   
         //   //display->clearDisplay(id);
-        //   timer->reset(500);
+        //   
         //   }
            
         //    rn = 1;
@@ -215,7 +202,8 @@ if(active){
     if(state == DODISPLAY){
     display->lock(id);
     simondisplay();
-    state++;}
+    //state++;
+  }
     if(state == DOBUTTONS){
     doButtons();
     }
