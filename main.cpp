@@ -40,8 +40,6 @@ void setup() {
 
     alarm->setSimon(simon);
 
-    pinMode(D7, OUTPUT);
-
 
     Particle.function("set_alarm", setAlarm);
     Particle.function("get_alarm", getAlarm);

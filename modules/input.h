@@ -1,13 +1,15 @@
 #ifndef INPUT_H_
 #define INPUT_H_
 
+/**
+ * Class to handle all the button inputs
+ */
 class Input : public Module {
     void initButtons();
 public:
     List <Button> *buttons;
     List <int> *last_pressed;
 
-//public:
     Input();
     void run();
     void setup();

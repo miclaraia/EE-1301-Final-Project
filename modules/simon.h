@@ -1,14 +1,15 @@
 #ifndef SIMON_H_
 #define SIMON_H_s
 
+/**
+ * Module to play the simon-says game
+ */
 class Simon : public Module {
     int disp[R+1];
     int checks[R];
     int rn =1;
     int state = 1;
-    //Matrix *matrix;
-     //bool rundisp = true;
-    // bool Passed = true;
+    
   void setup();
 
   Input *buttons;

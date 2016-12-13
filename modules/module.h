@@ -21,8 +21,9 @@ public:
     static int counter;
 };
 
-struct Button;
-
+/**
+ * Module to flash a heartbeat led
+ */
 class HeartBeat : public Module {
     bool state = true;
 public:
