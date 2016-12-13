@@ -2,9 +2,9 @@
 #include "modules.h"
 
 
-Module *speaker;
-Input *input;
+//Module *speaker;
 
+Input *input;
 HeartBeat *hb;
 Display *display;
 Clock *myClock;
@@ -17,8 +17,18 @@ int action(String str);
 
 int Module::counter = 0;
 
+bool ran_already = false;
+
 
 void setup() {
+    if (ran_already) {
+        delete(input);
+        delete(hb);
+        delete(display);
+        delete(myClock);
+        delete(alarm);
+        delete(simon);
+    }
     Serial.begin(9600);
 
     input = new Input();
@@ -47,6 +57,8 @@ void setup() {
     Particle.function("set_alarm", setAlarm);
     Particle.function("get_alarm", getAlarm);
     Particle.function("action", action);
+
+    ran_already = true;
 }
 
 void loop() {
@@ -92,4 +104,5 @@ int getAlarm(String str) {
 
 int action(String str) {
     if (str.compareTo("trigger") == 0) alarm->trigger();
+    else if (str.compareTo("reset") == 0) setup();
 }
