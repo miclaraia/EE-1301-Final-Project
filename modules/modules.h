@@ -1,0 +1,5 @@
+#include "module.h"
+#include "input.h"
+#include "display.h"
+#include "simon.h"
+#include "clock.h"

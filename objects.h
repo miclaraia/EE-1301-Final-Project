@@ -2,7 +2,6 @@
 #define OBJECTS_H_
 
 #include "application.h"
-#include "definitions.h"
 
 template <class T>
 class List {
@@ -17,6 +16,12 @@ public:
     T* get(int index);
 };
 
+struct Button {
+    int last = LOW;
+    int current = LOW;
+    int pin;
+};
+
 class MyTimer {
 public:
     unsigned int timer;
@@ -29,12 +34,6 @@ public:
     void reset(int duration);
 
     MyTimer(int duration);
-};
-
-struct Button {
-    int last = LOW;
-    int current = LOW;
-    int pin;
 };
 
 #endif

@@ -6,6 +6,7 @@ debug.h
 definitions.h
 includes.h
 modules.h
+input.h
 objects.h
 
 bitmaps.cpp
@@ -14,3 +15,5 @@ input.cpp
 main.cpp
 modules.cpp
 timer.cpp
+input.cpp-
+objects.cpp

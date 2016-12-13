@@ -1,5 +1,5 @@
 #include "application.h"
-#include "objects.h"
+#include "module.h"
 #include <string>
 
 using std::string;

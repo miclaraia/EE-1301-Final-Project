@@ -1,5 +1,6 @@
 #include "definitions.h"
-#include "includes.h"
+#include "modules.h"
+
 
 Module *speaker;
 Input *input;
