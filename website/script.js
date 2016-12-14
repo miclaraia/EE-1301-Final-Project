@@ -17,8 +17,8 @@ var control = new function() {
             self.action_buttons = $("div#actions a");
 
             self.custom_alarm = $("div#custom_alarm input");
-            self.custom_alarm_button = $("div#custom_alarm_button");
-        }
+            self.custom_alarm_button = $("div#custom_alarm a.btn");
+        }   
 
         self.initTimeSetButtons();
         self.initActionButtons();
@@ -49,7 +49,7 @@ var control = new function() {
 
             var minutes = $(event.target).attr("value");
             if (minutes == "time") {
-                var text = $(event.target).text().split(":");
+                var text = $(event.target).text();
                 minutes = self.getMinutesFromString(text);
             }
             self.setAlarm(minutes);
@@ -64,14 +64,17 @@ var control = new function() {
         var button = self.elements.custom_alarm_button;
 
         button.click(function(event) {
-            event.preventdefault();
             console.log(event);
+            event.preventDefault();
 
-            var text = field.text().split(":");
-            var minutes = self.getMinutesFromString(text);
+            var text = field.val();
+            console.log("text: ", text);
+            if (text.trim() && text.includes(":")) {
+                var minutes = self.getMinutesFromString(text);
 
-            console.log("minutes: ", minutes);
-            self.setAlarm(minutes);
+                console.log("minutes: " +  minutes);
+                self.setAlarm(minutes);
+            }
         });
     };
 
