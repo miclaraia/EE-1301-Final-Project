@@ -12,6 +12,8 @@ Clock::Clock() {
 // Create timer
 void Clock::setup() {
     timer = new MyTimer(1000);
+
+    Time.zone(-6);
 }
 
 /**
@@ -20,9 +22,11 @@ void Clock::setup() {
 void Clock::run() {
     // Time.hour() UTC, so in the UK
     // Add 6 hours for time zone difference
-    hour = Time.hour() - 6;
-    if (hour > 12) hour -= 12;
     minute = Time.minute();
+    hour = Time.hour();
+    
+    String h = String(Time.hour());
+    Serial.print("Hour: " + h + "\n\r");
 
     display->setTime(id, hour, minute);
 }

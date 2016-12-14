@@ -19,16 +19,13 @@ div#data {
     display:block;
 }
 
-div#data li {
-    display:block;
-    width:100px;
-    margin:10px 0;
-}
-
 div.list-group {
     width:300px;
 }
 
+/**
+ * Main table
+ */
 div#main table {
     margin: auto;
 }
@@ -37,7 +34,10 @@ div#main table td {
     padding: 0 50px;
 }
 
-div#actions div.list-group a {
+/**
+ * List of buttons
+ */
+div.button-list div.list-group a {
     text-align: center;
 }
 
@@ -45,3 +45,11 @@ div#tempBox a {
     margin: 5px 15px;
 }
 
+/**
+ * Title of button list
+ */
+div.button-list span.title {
+    font-size: 20px;
+    margin: auto;
+    text-align: center;
+}
