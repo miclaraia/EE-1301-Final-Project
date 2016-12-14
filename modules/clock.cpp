@@ -132,7 +132,7 @@ void Alarm::run() {
             if (flash_count > flash_max) {
                 state = ALARM_NORMAL;
                 display->unlock(id);
-                simon->play(); // for simulation purposes, if alarm activates, simon will run
+                
             }
         }
     }
