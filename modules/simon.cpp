@@ -22,10 +22,11 @@ void Simon::setLight(Light *light){
   this->light = light;
 }
 void Simon::setup(){
+  light->brighter();
   // this loop assigns 1 of four values, each value 
   // corresponding to a respective corner
     for(int j = 0; j< R; j++){
-           disp[j] = random(3) + 1;
+           disp[j] = random(1,5);
            checks[j] = 0;              // just to clear it
         }
         state = 1;                     // state of the run function

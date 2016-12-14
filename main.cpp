@@ -31,6 +31,7 @@ void setup() {
         delete(simon);
         delete(light);
     }
+    srand(HAL_RNG_GetRandomNumber());
     Serial.begin(9600);
 
     input = new Input();
