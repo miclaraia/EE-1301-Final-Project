@@ -1,7 +1,9 @@
 #include "module.h"
 #include "input.h"
 #include "display.h"
+#include "light.h"
 #include "simon.h"
+
 
 Simon::Simon(){
     timer = new MyTimer(175);
@@ -12,6 +14,9 @@ void Simon::setInput(Input *buttoninputs){
 }
 void Simon::setDisplay(Display *display){
     this->display = display;
+}
+void Simon::setLight(Light *light){
+  this->light = light;
 }
 void Simon::setup(){
     for(int j = 0; j< R; j++){

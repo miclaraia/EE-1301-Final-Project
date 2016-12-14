@@ -8,6 +8,10 @@
 #define BUTTON_BOTTOMRIGHT D3
 #define BUTTON_SNOOZE D2
 
+#define PIXEL_PIN D7
+#define PIXEL_COUNT 1
+#define PIXEL_TYPE WS2811
+
 #define LAST_PRESSED_LENGTH 10
 
 #define DODISPLAY 1
@@ -40,5 +44,7 @@
 
 #define ALARM_FLASH_COUNT 4
 #define ALARM_TRIGGER_COUNT 60
+
+
 
 #endif

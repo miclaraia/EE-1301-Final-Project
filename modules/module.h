@@ -4,7 +4,7 @@
 #include "adafruit.h"
 #include "definitions.h"
 #include "objects.h"
-#include "neopixel.h"
+
 
 class Module {
 public:

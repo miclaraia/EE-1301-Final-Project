@@ -10,6 +10,7 @@ Display *display;
 Clock *myClock;
 Alarm *alarm;
 Simon *simon;
+Light *light;
 
 int setAlarm(String minutes);
 int getAlarm(String input);
@@ -28,6 +29,7 @@ void setup() {
         delete(myClock);
         delete(alarm);
         delete(simon);
+        delete(light);
     }
     Serial.begin(9600);
 
@@ -37,6 +39,7 @@ void setup() {
     myClock = new Clock();
     alarm = new Alarm();
     simon = new Simon();
+    light = new Light();
 
     input->active = true;
     myClock->active = true;
@@ -86,6 +89,9 @@ void loop() {
 
     if (simon->check()) {
         simon->run();
+    }
+    if (light->check()){
+        light->run();
     }
 
     delay(100);

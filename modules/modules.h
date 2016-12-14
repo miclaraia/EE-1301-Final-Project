@@ -3,3 +3,4 @@
 #include "display.h"
 #include "simon.h"
 #include "clock.h"
+#include "light.h"

@@ -22,7 +22,7 @@ void Module::setid() {
 }
 
 HeartBeat::HeartBeat() {
-    active = true;
+    active = false;
     timer = new MyTimer(500);
     setid();
 }

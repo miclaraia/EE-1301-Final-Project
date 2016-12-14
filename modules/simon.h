@@ -1,5 +1,7 @@
 #ifndef SIMON_H_
-#define SIMON_H_s
+#define SIMON_H_
+
+#include "light.h"
 
 /**
  * Module to play the simon-says game
@@ -17,9 +19,12 @@ class Simon : public Module {
 
     Input *buttons;
     Display *display;
+    Light *light;
+
 public : 
     Simon();
-    void setDisplay(Display *display);  
+    void setDisplay(Display *display); 
+    void setLight(Light *light); 
     void simondisplay();
     void checking();
     void fail();
