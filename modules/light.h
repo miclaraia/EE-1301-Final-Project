@@ -5,9 +5,9 @@
 
 class Light : public Module {
 
-	Adafruit_NeoPixel *strip;
-	int PixelColor;
-	int x = 10;
+	//Adafruit_NeoPixel *strip;
+	int color;
+	int brightness;
 	bool enabled = true;
 void setup();
 public : 

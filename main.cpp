@@ -5,7 +5,7 @@
 //Module *speaker;
 
 Input *input;
-HeartBeat *hb;
+//HeartBeat *hb;
 Display *display;
 Clock *myClock;
 Alarm *alarm;
@@ -24,7 +24,7 @@ bool ran_already = false;
 void setup() {
     if (ran_already) {
         delete(input);
-        delete(hb);
+   //     delete(hb);
         delete(display);
         delete(myClock);
         delete(alarm);
@@ -34,7 +34,7 @@ void setup() {
     Serial.begin(9600);
 
     input = new Input();
-    hb = new HeartBeat();
+   // hb = new HeartBeat();
     display = new Display();
     myClock = new Clock();
     alarm = new Alarm();
@@ -57,6 +57,9 @@ void setup() {
     alarm->setClock(myClock);
 
 
+    simon->setLight(light);
+
+
     Particle.function("set_alarm", setAlarm);
     Particle.function("get_alarm", getAlarm);
     Particle.function("action", action);
@@ -75,9 +78,9 @@ void loop() {
         display->run();
     }
 
-    if (hb->check()) {
+   /* if (hb->check()) {
         hb->run();
-    }
+    }*/
 
     if (myClock->check()) {
         myClock->run();

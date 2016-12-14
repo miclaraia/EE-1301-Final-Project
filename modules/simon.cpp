@@ -150,6 +150,7 @@ void Simon::checking(){
     
     }
 void Simon::fail(){
+
       if(z <= 6) {// 4 being double the number of times x flashes
         z++;
 
@@ -168,9 +169,11 @@ void Simon::fail(){
 
 
               }
-          else setup();// to reset the values of simon's displays
+          else {
+          light->brighter();
+          setup();// to reset the values of simon's displays
            
-         
+         }
 }
  
         // for(int i=0; i<2; i++){
@@ -200,6 +203,8 @@ if(active){
     checking();
     }
     if(state == PASSED){
+      
+      light->disable();
       buttons->clearPresses();
         active = false;
         display->unlock(id);
