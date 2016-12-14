@@ -216,4 +216,5 @@ void Simon::play() {
   setup();
   buttons->clearPresses();
   timer->reset();
+  light->brighter();
 }

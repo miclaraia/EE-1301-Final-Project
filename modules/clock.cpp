@@ -108,8 +108,7 @@ void Alarm::run() {
         } 
 
         /**
-         * Currently, pressing snooze button 
-         * activates simon says game
+         
          */
         else if (pin == BUTTON_TOPRIGHT
             || (state == ALARM_TRIGGER 
@@ -133,6 +132,7 @@ void Alarm::run() {
             if (flash_count > flash_max) {
                 state = ALARM_NORMAL;
                 display->unlock(id);
+                simon->play(); // for simulation purposes, if alarm activates, simon will run
             }
         }
     }
