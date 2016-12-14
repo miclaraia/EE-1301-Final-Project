@@ -4,7 +4,7 @@
 #include "simon.h"
 
 Simon::Simon(){
-    timer = new MyTimer(500);
+    timer = new MyTimer(175);
     setup();
 }
 void Simon::setInput(Input *buttoninputs){
@@ -35,15 +35,15 @@ void Simon::simondisplay(){
         display->clearDisplay(id);
         buttons->clearPresses();
         z = 0;
-        state++;
+        state = DOBUTTONS;
 
       }
 
-      if(tempstate > 1){
-
-        if(tempstate > 2)
-          tempstate = 0;
-          else tempstate++;
+      if(tempstate >= 2){
+          tempstate++;
+        if(tempstate >= 5)
+          tempstate = 1;
+        
 
         display->clearDisplay(id);
         
@@ -57,7 +57,7 @@ void Simon::simondisplay(){
         if (disp[z] ==1){
             
          display->setSimon(id,TOPLEFT);
-         tempstate++;    
+         tempstate = 2;    
         }
 
         ///////////////////////////////////
@@ -65,7 +65,7 @@ void Simon::simondisplay(){
         if(disp[z] == 2){
             
           display->setSimon(id,TOPRIGHT);
-          tempstate++;
+          tempstate = 2;
         }
 
         ///////////////////////////////////
@@ -73,7 +73,7 @@ void Simon::simondisplay(){
         if(disp[z] == 3){
             
          display->setSimon(id,BOTTOMLEFT);
-          tempstate++;
+          tempstate = 2;
         }
 
         ///////////////////////////////////
@@ -81,7 +81,7 @@ void Simon::simondisplay(){
          if (disp[z] == 4) {
             
          display->setSimon(id,BOTTOMRIGHT);
-          tempstate++;      
+          tempstate = 2;      
         }
         z++;
       }
@@ -108,22 +108,32 @@ void Simon::checking(){
         else if(buttons->last_pressed->list[i] == BUTTON_BOTTOMRIGHT)
             checks[i] = SIMONBOTTOMRIGHT;
         else state = 1; // if some error
+
+        String d = String(disp[i]);
+            String c = String(checks[i]);
+            String c1 = String(i);
+            String c2 = String(rn);
+            Serial.print("i: " + c1 + " rn: " + c2 + " disp: " + d + " check: " + c + "\n\r");
     }
     
         for (int i =0; i<rn; i++)
           if(disp[i] != checks[i]){
-             Serial.print(disp[i]);
-             Serial.print(checks[i]);
+            String d = String(disp[i]);
+            String c = String(checks[i]);
+            Serial.print("disp: " + d + "check: " + c + "\n\r");
               //fail();
               failed = true;
              }
         if(failed)
           state = FAILED;
-        if(!failed)
+        if(!failed){
         if(rn == R && state != DODISPLAY){
             state = PASSED;
-        }
-        else rn++;
+        }else {
+          rn++;
+          state =DODISPLAY;}
+      }
+        
          
 
 
@@ -185,6 +195,7 @@ if(active){
     checking();
     }
     if(state == PASSED){
+      buttons->clearPresses();
         active = false;
         display->unlock(id);
     }

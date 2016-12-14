@@ -26,7 +26,7 @@ void Clock::run() {
     hour = Time.hour();
     
     String h = String(Time.hour());
-    Serial.print("Hour: " + h + "\n\r");
+    //Serial.print("Hour: " + h + "\n\r");
 
     display->setTime(id, hour, minute);
 }
