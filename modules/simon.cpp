@@ -16,19 +16,27 @@ void Simon::setDisplay(Display *display){
 void Simon::setup(){
     for(int j = 0; j< R; j++){
            disp[j] = random(3) + 1;
-           //disp[j] = 1;
+           checks[j] = 0; // just to clear it
         }
-        disp[R] =0;
+        state = 1;
+        rn = 1;
+        tempstate =1;
+        failed = false;
+        z =0; // just in case
 
 }
 void Simon::simondisplay(){
      // for(int z = 0; z < rn; z++){
+
        Serial.print("t; ");
        Serial.print(tempstate);
        Serial.print("\n\r");
        if(z >= rn){
         display->clearDisplay(id);
+        buttons->clearPresses();
+        z = 0;
         state++;
+
       }
 
       if(tempstate > 1){
@@ -38,7 +46,7 @@ void Simon::simondisplay(){
           else tempstate++;
 
         display->clearDisplay(id);
-        z++;
+        
         }
         
 
@@ -49,83 +57,41 @@ void Simon::simondisplay(){
         if (disp[z] ==1){
             
          display->setSimon(id,TOPLEFT);
-
          tempstate++;    
-    
         }
+
         ///////////////////////////////////
         //topright
         if(disp[z] == 2){
             
           display->setSimon(id,TOPRIGHT);
-          
           tempstate++;
         }
+
         ///////////////////////////////////
         //botleft
         if(disp[z] == 3){
             
          display->setSimon(id,BOTTOMLEFT);
-          
           tempstate++;
-  
         }
+
         ///////////////////////////////////
         //botright
          if (disp[z] == 4) {
             
          display->setSimon(id,BOTTOMRIGHT);
-           
           tempstate++;      
-    
         }
+        z++;
       }
    
 }
-//     for(int z = 0; z < rn; z++){
-         
-       
-//         //topleft
-//         if (disp[z] ==1){
-//             display->setSimon(id,TOPLEFT);
-//           
-//           //display->clearDisplay(id);
-//           //
-//          continue;
-//         }
-        
-//         //topright
-//         if(disp[z] == 2){
-//           display->setSimon(id,TOPRIGHT);
-//           
-//          // display->clearDisplay(id);
-//           //
-//           continue;
-//         }
-        
-//         //botleft
-//         if(disp[z] == 3){
-//          display->setSimon(id,BOTTOMLEFT);
-//           
-//           //display->clearDisplay(id);
-//           //
-//           continue;
-//         }
-        
-//         //botright
-//          if (disp[z] == 4) {
-//          display->setSimon(id,BOTTOMRIGHT);
-//           
-//          // display->clearDisplay(id);
-//           //
-//           continue;
-//         } 
-        
 
-//     }
-// }
 void Simon::doButtons() {
+
     if (rn == buttons->last_pressed->count){
+      Serial.print(buttons->last_pressed->list[0]);
         state++;
         //buttons->last_pressed->list[]
     }
@@ -141,47 +107,56 @@ void Simon::checking(){
             checks[i] = SIMONBOTTOMLEFT;
         else if(buttons->last_pressed->list[i] == BUTTON_BOTTOMRIGHT)
             checks[i] = SIMONBOTTOMRIGHT;
-        else state = 1;
+        else state = 1; // if some error
     }
     
-    for (int i =0; i<rn; i++)
-        if(disp[i] != checks[i])
-            fail();
+        for (int i =0; i<rn; i++)
+          if(disp[i] != checks[i]){
+             Serial.print(disp[i]);
+             Serial.print(checks[i]);
+              //fail();
+              failed = true;
+             }
+        if(failed)
+          state = FAILED;
+        if(!failed)
         if(rn == R && state != DODISPLAY){
             state = PASSED;
         }
-        if(state != 1){
+        else rn++;
+         
+
+
+        /*if(state != 1){
             rn++;
             state = DODISPLAY;
-        }
+        }*/
        
-
-
-
-
     
     }
 void Simon::fail(){
- 
- for(int i=0; i<2; i++){
-        if (tempstate == 1){
-          display->setSimon(id,X);
-          
-          tempstate++;
-          i--; // same reason as the z-- before
-            }
-        if (tempstate == 2){
-          display->clearDisplay(id);
-          
-          tempstate--;
-          }
+      if(z <= 6) {// 4 being double the number of times x flashes
+        z++;
+
+             if (tempstate >= 2){
+             display->clearDisplay(id);
+             
+             tempstate = 1;
            }
-           rn = 1; // back to round one
-           state = DODISPLAY; // have to reset state
-           setup();// to reset the values of simon's displays
+
+             if (tempstate <= 1){
+             display->setSimon(id,X);
+            
+             tempstate++;
+            
            }
 
 
+              }
+          else setup();// to reset the values of simon's displays
+           
+         
+}
  
         // for(int i=0; i<2; i++){
         //   display->setSimon(id,X);
@@ -202,7 +177,6 @@ if(active){
     if(state == DODISPLAY){
     display->lock(id);
     simondisplay();
-    //state++;
   }
     if(state == DOBUTTONS){
     doButtons();
@@ -214,13 +188,16 @@ if(active){
         active = false;
         display->unlock(id);
     }
+    if(state == FAILED){
+    fail();
+    }
+
 }
 }
 
 void Simon::play() {
   active = true;
-  state = 1;
-  rn = 1;
+  
 
   setup();
 

@@ -14,6 +14,7 @@
 #define DOBUTTONS 2
 #define DOCHECKS 3
 #define PASSED 4
+#define FAILED 5
 
 #define CLEAR       100
 #define TOPLEFT     101
@@ -27,6 +28,11 @@
 #define SIMONTOPRIGHT 2
 #define SIMONBOTTOMLEFT 3
 #define SIMONBOTTOMRIGHT 4
+#define SIMONBUTTON_TOPLEFT D6
+#define SIMONBUTTON_TOPRIGHT 4
+#define SIMONBUTTON_BOTTOMLEFT 5
+#define SIMONBUTTON_BOTTOMRIGHT 3
+#define SIMONBUTTON_SNOOZE 2
 //  Section for Alarm state definitions
 #define ALARM_NORMAL 0
 #define ALARM_FLASH 1
