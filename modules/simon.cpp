@@ -24,9 +24,11 @@ void Simon::setLight(Light *light){
 void Simon::setup(){
   // this loop assigns 1 of four values, each value 
   // corresponding to a respective corner
+  //randomSeed(Time.now);
     for(int j = 0; j< R; j++){
            disp[j] = random(3) + 1;
            checks[j] = 0;              // just to clear it
+
         }
         state = 1;                     // state of the run function
         rn = 1;                        // Round number
