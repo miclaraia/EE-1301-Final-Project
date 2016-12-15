@@ -13,7 +13,7 @@ void Display::setup() {
     // Make active
     active = true;
     // Create timer
-    timer = new MyTimer(100);
+    timer = new MyTimer(50);
 
     Matrix *matrix;
     matrix = new Adafruit_8x8matrix();
