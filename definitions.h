@@ -29,7 +29,7 @@
 #define DOCHECKS 3
 #define PASSED 4
 #define FAILED 5
-#define R 5 // r for rounds
+#define R 10 // r for rounds
 
 #define SIMONTOPLEFT 1
 #define SIMONTOPRIGHT 2
